@@ -8,12 +8,12 @@ import {
   FaMapMarkerAlt, 
   FaGithub, 
   FaLinkedin, 
-  FaTwitter, 
   FaInstagram,
   FaPaperPlane,
   FaCopy,
   FaCheck
 } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -53,7 +53,7 @@ export default function Contact() {
   const socialLinks = [
     { icon: FaGithub, label: 'GitHub', href: 'https://github.com/ALIRAZA4278', color: 'hover:text-gray-900 dark:hover:text-white' },
     { icon: FaLinkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/ali-raza-4a5762282/', color: 'hover:text-blue-600' },
-    { icon: FaTwitter, label: 'Twitter', href: 'https://x.com/AliFaro45370063', color: 'hover:text-blue-400' },
+    { icon: FaXTwitter, label: 'X (Twitter)', href: 'https://x.com/AliFaro45370063', color: 'hover:text-blue-400' },
     { icon: FaInstagram, label: 'Instagram', href: 'https://instagram.com/ali._.razax', color: 'hover:text-pink-500' }
   ];
 

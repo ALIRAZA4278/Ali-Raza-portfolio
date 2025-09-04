@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaDownload, FaArrowDown } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram, FaDownload, FaArrowDown } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import Image from 'next/image';
 
 export default function Hero() {
@@ -48,7 +49,7 @@ export default function Hero() {
   const socialLinks = [
     { icon: FaGithub, href: 'https://github.com/ALIRAZA4278', label: 'GitHub' },
     { icon: FaLinkedin, href: 'https://www.linkedin.com/in/ali-raza-4a5762282/', label: 'LinkedIn' },
-    { icon: FaTwitter, href: 'https://x.com/AliFaro45370063', label: 'Twitter' },
+    { icon: FaXTwitter, href: 'https://x.com/AliFaro45370063', label: 'X (Twitter)' },
     { icon: FaInstagram, href: 'https://instagram.com/ali._.razax', label: 'Instagram' }
   ];
 

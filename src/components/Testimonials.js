@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaStar, FaQuoteLeft, FaChevronLeft, FaChevronRight, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaStar, FaQuoteLeft, FaChevronLeft, FaChevronRight, FaLinkedin } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -200,7 +201,7 @@ export default function Testimonials() {
                       {testimonials[currentIndex].platform === 'linkedin' ? (
                         <FaLinkedin size={16} />
                       ) : (
-                        <FaTwitter size={16} />
+                        <FaXTwitter size={16} />
                       )}
                       <span className="text-sm">Connect</span>
                     </motion.a>

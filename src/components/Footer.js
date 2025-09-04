@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaHeart, FaArrowUp } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram, FaHeart, FaArrowUp } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -9,7 +10,7 @@ export default function Footer() {
   const socialLinks = [
     { icon: FaGithub, href: 'https://github.com/ALIRAZA4278', label: 'GitHub', color: 'hover:text-gray-300' },
     { icon: FaLinkedin, href: 'https://www.linkedin.com/in/ali-raza-4a5762282/', label: 'LinkedIn', color: 'hover:text-blue-400' },
-    { icon: FaTwitter, href: 'https://x.com/AliFaro45370063', label: 'Twitter', color: 'hover:text-blue-300' },
+    { icon: FaXTwitter, href: 'https://x.com/AliFaro45370063', label: 'X (Twitter)', color: 'hover:text-blue-300' },
     { icon: FaInstagram, href: 'https://instagram.com/ali._.razax', label: 'Instagram', color: 'hover:text-pink-400' }
   ];
 
