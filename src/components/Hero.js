@@ -262,31 +262,22 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 2.0 }}
             className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-8 sm:mb-10 lg:mb-12 px-4"
           >
-            <motion.button
-              whileHover={{ 
-                scale: 1.05, 
-                boxShadow: '0 20px 40px rgba(59, 130, 246, 0.4)',
-                background: 'linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4)'
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="group relative bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-medium flex items-center gap-2 hover:from-blue-700 hover:to-purple-700 transition-all text-sm sm:text-base overflow-hidden"
+            {/* Download resume as a direct file link to avoid overlay/blur issues */}
+            <a
+              href="/Images/ali%20raza.pdf"
+              download="ali-raza.pdf"
+              className="group relative bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-medium flex items-center gap-2 hover:from-blue-700 hover:to-purple-700 transition-all text-sm sm:text-base"
+              aria-label="Download Resume"
             >
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity"
-                initial={false}
-                animate={{ x: [-100, 100] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              />
-              <span className="relative z-10 flex items-center gap-2">
-                <motion.div
-                  animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                >
-                  <FaDownload size={14} />
-                </motion.div>
-                Download Resume
-              </span>
-            </motion.button>
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                className="flex items-center"
+              >
+                <FaDownload size={14} />
+              </motion.div>
+              <span className="flex items-center">Download Resume</span>
+            </a>
             
             <motion.button
               whileHover={{ 

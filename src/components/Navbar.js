@@ -70,7 +70,13 @@ export default function Navbar() {
           {/* Logo */}
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="text-lg sm:text-xl lg:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+            className="text-lg sm:text-xl lg:text-2xl font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-blue-600 bg-clip-text text-transparent"
+            style={{
+              backgroundImage: 'linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              textShadow: '0 0 30px rgba(59, 130, 246, 0.3)'
+            }}
           >
             Ali Raza
           </motion.div>

@@ -46,8 +46,6 @@ export function ThemeProvider({ children }) {
     root.setAttribute('data-theme', theme);
     
     // Additional debug logging
-    console.log('Theme changed to:', theme);
-    console.log('HTML classes:', root.className);
     
   }, [theme, mounted]);
 

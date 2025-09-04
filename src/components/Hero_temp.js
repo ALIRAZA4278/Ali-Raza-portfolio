@@ -144,14 +144,15 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 1.0 }}
             className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-8 sm:mb-10 lg:mb-12 px-4"
           >
-            <motion.button
-              whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(59, 130, 246, 0.3)' }}
-              whileTap={{ scale: 0.95 }}
+            <a
+              href="/Images/ali%20raza.pdf"
+              download="ali-raza.pdf"
               className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-medium flex items-center gap-2 hover:from-blue-700 hover:to-purple-700 transition-all text-sm sm:text-base"
+              aria-label="Download Resume"
             >
               <FaDownload size={14} />
-              Download Resume
-            </motion.button>
+              <span>Download Resume</span>
+            </a>
             
             <motion.button
               whileHover={{ scale: 1.05 }}
