@@ -114,7 +114,7 @@ export async function POST(request) {
           </p>
           
           <div style="text-align: center; margin: 30px 0;">
-            <a href="https://linkedin.com/in/ali-raza-4a5762282/" style="display: inline-block; margin: 0 10px; padding: 10px 20px; background-color: #0077b5; color: white; text-decoration: none; border-radius: 5px;">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/ali-raza-4a5762282/" style="display: inline-block; margin: 0 10px; padding: 10px 20px; background-color: #0077b5; color: white; text-decoration: none; border-radius: 5px;">LinkedIn</a>
             <a href="https://github.com/ALIRAZA4278" style="display: inline-block; margin: 0 10px; padding: 10px 20px; background-color: #333; color: white; text-decoration: none; border-radius: 5px;">GitHub</a>
             <a href="https://wa.me/+923212865058" style="display: inline-block; margin: 0 10px; padding: 10px 20px; background-color: #25d366; color: white; text-decoration: none; border-radius: 5px;">WhatsApp</a>
           </div>
