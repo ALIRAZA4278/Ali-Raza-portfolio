@@ -59,7 +59,7 @@ export default function FloatingElements() {
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0 }}
-            className="fixed bottom-6 right-6 z-40 flex flex-col gap-3"
+            className="fixed bottom-6 right-12 sm:right-4 z-40 flex flex-col gap-3"
           >
             {/* WhatsApp Button */}
             <motion.button

@@ -1,24 +1,22 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { FaSun, FaMoon, FaBars, FaTimes } from 'react-icons/fa';
-import { useTheme } from './ThemeProvider';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const { theme, toggleTheme } = useTheme();
 
-  const navLinks = [
+  const navLinks = useMemo(() => [
     { name: 'Home', href: '#home', path: '/' },
     { name: 'About', href: '#about', path: '/' },
     { name: 'Skills', href: '#skills', path: '/' },
     { name: 'Projects', href: '#projects', path: '/' },
     { name: 'All Projects', href: '/projects', path: '/projects' },
     { name: 'Contact', href: '#contact', path: '/' }
-  ];
+  ], []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,7 +37,7 @@ export default function Navbar() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [navLinks]);
 
   const scrollToSection = (href, path) => {
     if (path === '/projects') {
@@ -106,16 +104,17 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Mobile Menu */}
+          {/* Mobile Menu Button Only */}
           <div className="flex items-center">
             {/* Mobile Menu Button */}
             <motion.button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-1.5 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+              className="lg:hidden p-2 pr-8 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              title="Toggle menu"
             >
-              {isMenuOpen ? <FaTimes size={14} /> : <FaBars size={14} />}
+              {isMenuOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
             </motion.button>
           </div>
         </div>
