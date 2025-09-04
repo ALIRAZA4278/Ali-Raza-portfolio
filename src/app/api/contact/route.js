@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-import 'dotenv/config';
 
 export async function POST(request) {
   try {
@@ -13,9 +12,13 @@ export async function POST(request) {
         { status: 400 }
       );
     }
-    
 
-    // Create transporter (correct Nodemailer API)
+    console.log('Environment variables check:', {
+      user: process.env.NM_EMAIL_USER ? 'Set' : 'Missing',
+      pass: process.env.NM_EMAIL_PW ? 'Set' : 'Missing'
+    });
+
+    // Create transporter
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
@@ -26,14 +29,22 @@ export async function POST(request) {
       },
     });
 
-
     // Verify transporter configuration
-    await transporter.verify();
+    try {
+      await transporter.verify();
+      console.log('SMTP connection verified successfully');
+    } catch (verifyError) {
+      console.error('SMTP verification failed:', verifyError);
+      return NextResponse.json(
+        { error: 'SMTP configuration error', details: String(verifyError) },
+        { status: 500 }
+      );
+    }
 
     // Email to you (receiving the contact form)
     const mailToYou = {
       from: process.env.NM_EMAIL_USER,
-      to: process.env.NM_EMAIL_USER, // Your email
+      to: process.env.NM_EMAIL_USER,
       subject: `New Portfolio Contact: ${subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -69,7 +80,7 @@ export async function POST(request) {
     // Auto-reply to the user
     const autoReplyToUser = {
       from: process.env.NM_EMAIL_USER,
-      to: email, // User's email - THIS IS CRITICAL
+      to: email,
       replyTo: process.env.NM_EMAIL_USER,
       subject: `Thank you for contacting me, ${name}!`,
       html: `
@@ -79,26 +90,12 @@ export async function POST(request) {
           </h2>
           
           <p style="font-size: 16px; line-height: 1.6; color: #374151;">
-
-        // Actually send the emails
-        try {
-          const sendResult1 = await transporter.sendMail(mailToYou);
-          console.log('mailToYou send result:', sendResult1);
-
-          const sendResult2 = await transporter.sendMail(autoReplyToUser);
-          console.log('autoReplyToUser send result:', sendResult2);
-        } catch (sendErr) {
-          console.error('Error during transporter.sendMail:', sendErr);
-          return NextResponse.json(
-            { error: 'Failed to send email(s).', details: String(sendErr) },
-            { status: 500 }
-          );
-        }
-
-        return NextResponse.json(
-          { message: 'Email(s) sent successfully!' },
-          { status: 200 }
-        );
+            Hi <strong>${name}</strong>,
+          </p>
+          
+          <p style="font-size: 16px; line-height: 1.6; color: #374151;">
+            Thank you for contacting me through my portfolio! I've received your message and will get back to you as soon as possible.
+          </p>
           
           <div style="background-color: #f0f9ff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #0ea5e9;">
             <h3 style="color: #374151; margin-top: 0;">Your Message Summary:</h3>
@@ -137,17 +134,32 @@ export async function POST(request) {
       `,
     };
 
-    
+    // Send emails
+    try {
+      console.log('Sending email to owner...');
+      const sendResult1 = await transporter.sendMail(mailToYou);
+      console.log('Email to owner sent successfully:', sendResult1.messageId);
 
-    return NextResponse.json(
-      { message: 'Email sent successfully!' },
-      { status: 200 }
-    );
+      console.log('Sending auto-reply to user...');
+      const sendResult2 = await transporter.sendMail(autoReplyToUser);
+      console.log('Auto-reply sent successfully:', sendResult2.messageId);
+
+      return NextResponse.json(
+        { message: 'Emails sent successfully!' },
+        { status: 200 }
+      );
+    } catch (sendErr) {
+      console.error('Error during email sending:', sendErr);
+      return NextResponse.json(
+        { error: 'Failed to send email(s)', details: String(sendErr) },
+        { status: 500 }
+      );
+    }
 
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('General error in contact API:', error);
     return NextResponse.json(
-      { error: 'Failed to send email. Please try again.' },
+      { error: 'Internal server error', details: String(error) },
       { status: 500 }
     );
   }
