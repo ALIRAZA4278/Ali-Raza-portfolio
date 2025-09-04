@@ -40,75 +40,32 @@ export async function POST(request) {
     const mailToYou = {
       from: process.env.NM_EMAIL_USER,
       to: process.env.NM_EMAIL_USER, // Your email
-      subject: `📧 New Portfolio Contact: ${subject}`,
+      subject: `New Portfolio Contact: ${subject}`,
       html: `
-        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff;">
-          <!-- Header -->
-          <div style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); padding: 30px 20px; text-align: center; border-radius: 10px 10px 0 0;">
-            <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600;">
-              🎯 New Contact Form Submission
-            </h1>
-            <p style="color: #e5e7eb; margin: 10px 0 0 0; font-size: 16px;">
-              Someone reached out through your portfolio
-            </p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #3b82f6; border-bottom: 2px solid #3b82f6; padding-bottom: 10px;">
+            New Contact Form Submission
+          </h2>
+          
+          <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+            <p><strong>Subject:</strong> ${subject}</p>
           </div>
           
-          <!-- Content -->
-          <div style="padding: 30px 20px; background-color: #ffffff;">
-            <!-- Contact Details -->
-            <div style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 25px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid #3b82f6;">
-              <h3 style="color: #374151; margin: 0 0 20px 0; font-size: 18px; font-weight: 600;">📋 Contact Information</h3>
-              <div style="display: grid; gap: 12px;">
-                <div style="display: flex; align-items: center;">
-                  <span style="color: #6b7280; font-weight: 600; min-width: 80px;">👤 Name:</span>
-                  <span style="color: #111827; font-weight: 500;">${name}</span>
-                </div>
-                <div style="display: flex; align-items: center;">
-                  <span style="color: #6b7280; font-weight: 600; min-width: 80px;">📧 Email:</span>
-                  <a href="mailto:${email}" style="color: #3b82f6; text-decoration: none; font-weight: 500;">${email}</a>
-                </div>
-                <div style="display: flex; align-items: center;">
-                  <span style="color: #6b7280; font-weight: 600; min-width: 80px;">📝 Subject:</span>
-                  <span style="color: #111827; font-weight: 500;">${subject}</span>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Message -->
-            <div style="background-color: #ffffff; padding: 25px; border-radius: 12px; border: 2px solid #e5e7eb; margin-bottom: 25px;">
-              <h3 style="color: #374151; margin: 0 0 15px 0; font-size: 18px; font-weight: 600; display: flex; align-items: center;">
-                💬 Message
-              </h3>
-              <div style="background-color: #f9fafb; padding: 20px; border-radius: 8px; border-left: 4px solid #3b82f6;">
-                <p style="line-height: 1.7; color: #374151; margin: 0; font-size: 16px;">${message}</p>
-              </div>
-            </div>
-            
-            <!-- Action Buttons -->
-            <div style="text-align: center; margin: 30px 0;">
-              <a href="mailto:${email}" style="display: inline-block; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px; margin: 0 10px;">
-                📧 Reply Now
-              </a>
-              <a href="https://wa.me/+923212865058" style="display: inline-block; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px; margin: 0 10px;">
-                💬 WhatsApp
-              </a>
-            </div>
+          <div style="background-color: #ffffff; padding: 20px; border-left: 4px solid #3b82f6;">
+            <h3 style="color: #374151; margin-top: 0;">Message:</h3>
+            <p style="line-height: 1.6; color: #4b5563;">${message}</p>
           </div>
           
-          <!-- Footer -->
-          <div style="background-color: #f9fafb; padding: 20px; text-align: center; border-radius: 0 0 10px 10px; border-top: 1px solid #e5e7eb;">
-            <p style="color: #6b7280; font-size: 14px; margin: 0;">
-              📅 Received: ${new Date().toLocaleString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-              })}
-            </p>
-            <p style="color: #9ca3af; font-size: 12px; margin: 10px 0 0 0;">
-              This email was sent from your portfolio contact form • <a href="https://aliraza-portfolio.vercel.app" style="color: #3b82f6; text-decoration: none;">View Portfolio</a>
+          <div style="text-align: center; margin-top: 30px;">
+            <a href="mailto:${email}" style="display: inline-block; background-color: #3b82f6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-right: 10px;">Reply Now</a>
+            <a href="https://wa.me/+923212865058" style="display: inline-block; background-color: #25d366; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">WhatsApp</a>
+          </div>
+          
+          <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #f1f5f9; border-radius: 8px;">
+            <p style="color: #64748b; font-size: 14px;">
+              This email was sent from your portfolio contact form.
             </p>
           </div>
         </div>
