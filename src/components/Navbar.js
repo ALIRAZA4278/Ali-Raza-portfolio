@@ -8,6 +8,18 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const navLinks = useMemo(() => [
     { name: 'Home', href: '#home', path: '/' },
@@ -20,7 +32,23 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      // Get hero section height to determine when to show navbar background
+      const heroSection = document.getElementById('home') || document.querySelector('.hero-section');
+      let heroHeight = 400; // Default fallback
+      
+      if (heroSection) {
+        heroHeight = heroSection.offsetHeight;
+        // Adjust for mobile vs desktop
+        const offset = isMobile ? 50 : 100;
+        heroHeight = heroHeight - offset;
+      } else {
+        // Fallback based on device type
+        heroHeight = isMobile ? 300 : 500;
+      }
+      
+      const shouldShowBg = window.scrollY > heroHeight;
+      console.log('Navbar scroll check - scrollY:', window.scrollY, 'heroHeight:', heroHeight, 'shouldShowBg:', shouldShowBg, 'isMobile:', isMobile);
+      setIsScrolled(shouldShowBg);
 
       // Update active section based on scroll position
       const sections = navLinks.map(link => link.href.substring(1));
@@ -37,7 +65,7 @@ export default function Navbar() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [navLinks]);
+  }, [navLinks, isMobile]);
 
   const scrollToSection = (href, path) => {
     if (path === '/projects') {
@@ -57,9 +85,9 @@ export default function Navbar() {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed w-full z-50 transition-all duration-300 ${
+      className={`fixed w-full z-50 transition-all duration-500 ${
         isScrolled 
-          ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-lg' 
+          ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-2xl border-b border-gray-200/20 dark:border-gray-700/30' 
           : 'bg-transparent'
       }`}
     >
@@ -104,17 +132,26 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Mobile Menu Button Only */}
+          {/* Mobile Menu Button */}
           <div className="flex items-center">
-            {/* Mobile Menu Button */}
             <motion.button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 pr-8 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+              className={`lg:hidden p-3 rounded-lg transition-all duration-300 ${
+                isScrolled 
+                  ? 'bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl shadow-lg border border-gray-200/20 dark:border-gray-700/30' 
+                  : 'bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg shadow-md border border-gray-200/20 dark:border-gray-700/30'
+              } text-gray-700 dark:text-gray-300 hover:bg-white/100 dark:hover:bg-gray-800/100`}
+              style={{
+                width: '48px',
+                height: '48px',
+                minWidth: '48px',
+                minHeight: '48px'
+              }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               title="Toggle menu"
             >
-              {isMenuOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
+              {isMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
             </motion.button>
           </div>
         </div>
@@ -128,17 +165,22 @@ export default function Navbar() {
           }}
           className="lg:hidden overflow-hidden"
         >
-          <div className="py-4 space-y-2">
+          <div className={`p-4 m-4 rounded-2xl space-y-3 transition-all duration-300 ${
+            isScrolled 
+              ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-2xl border border-gray-200/20 dark:border-gray-700/30' 
+              : 'bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg shadow-xl border border-gray-200/30 dark:border-gray-700/30'
+          }`}>
             {navLinks.map((link) => (
               <motion.button
                 key={link.name}
                 onClick={() => scrollToSection(link.href, link.path)}
-                className={`block w-full text-left px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`block w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
                   activeSection === link.href.substring(1)
-                    ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    ? 'text-white bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg transform scale-105'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:text-blue-600 dark:hover:text-blue-400'
                 }`}
-                whileHover={{ x: 10 }}
+                whileHover={{ x: 8 }}
+                whileTap={{ scale: 0.98 }}
               >
                 {link.name}
               </motion.button>

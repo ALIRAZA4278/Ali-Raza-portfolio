@@ -8,12 +8,12 @@ import Projects from '../components/Projects';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import FloatingElements from '../components/FloatingElements';
-import { ThemeProvider } from '../components/ThemeProvider';
 import ThemeChangeNotification from '../components/ThemeChangeNotification';
+import MobileLayoutStabilizer from '../components/MobileLayoutStabilizer';
 
 export default function Home() {
   return (
-    <ThemeProvider>
+    <MobileLayoutStabilizer>
       <div className="min-h-screen bg-white dark:bg-gray-900 transition-all duration-500 ease-in-out">
         <Navbar />
         <Hero />
@@ -23,7 +23,8 @@ export default function Home() {
         <Contact />
         <Footer />
         <FloatingElements />
+        <ThemeChangeNotification />
       </div>
-    </ThemeProvider>
+    </MobileLayoutStabilizer>
   );
 }
