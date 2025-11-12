@@ -145,7 +145,7 @@ export default function Hero() {
               {/* Profile Content */}
               <div className="relative w-full h-full bg-white dark:bg-gray-800 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl">
                 <Image
-                  src="/Images/ali final 1.png"
+                  src="/Images/ali final 2.png"
                   alt="Ali Raza Profile Picture"
                   fill
                   className="object-cover"
@@ -242,16 +242,16 @@ export default function Hero() {
               className="flex flex-wrap justify-center gap-6 mt-6 text-sm"
             >
               <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span>Available for work</span>
-              </div>
-              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                 <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                 <span>7+ Projects Completed</span>
               </div>
               <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                 <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                 <span>MERN Stack Specialist</span>
+              </div>
+              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                <div className="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                <span>CS Student</span>
               </div>
             </motion.div>
           </motion.div>
@@ -281,7 +281,7 @@ export default function Hero() {
             </a>
             
             <motion.button
-              whileHover={{ 
+              whileHover={{
                 scale: 1.05,
                 backgroundColor: 'rgb(37 99 235)',
                 color: 'white',
@@ -298,7 +298,7 @@ export default function Hero() {
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
               <span className="relative z-10 group-hover:text-white transition-colors">
-                Hire Me
+                Get In Touch
               </span>
             </motion.button>
           </motion.div>

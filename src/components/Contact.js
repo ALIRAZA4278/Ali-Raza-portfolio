@@ -120,8 +120,8 @@ export default function Contact() {
             Get In <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Touch</span>
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
-            I&apos;m always excited about working on new challenges and creating impactful digital experiences. 
-            Let&apos;s connect and discuss your next project!
+            I&apos;m always eager to connect with fellow developers, tech enthusiasts, and industry professionals.
+            Let&apos;s network and share ideas!
           </p>
           <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
         </motion.div>
@@ -138,7 +138,7 @@ export default function Contact() {
               Let&apos;s Connect!
             </h3>
             <p className="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-              Whether you have a project in mind, want to collaborate, or just want to say hello, 
+              Whether you want to discuss technology, exchange ideas, or just connect,
               I&apos;d love to hear from you. Feel free to reach out through any of the channels below.
             </p>
 
@@ -290,7 +290,7 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-colors resize-none"
-                  placeholder="Tell me about your project or just say hello!"
+                  placeholder="Share your thoughts or just say hello!"
                 ></textarea>
               </motion.div>
 

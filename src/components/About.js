@@ -135,11 +135,11 @@ export default function About() {
                 Let&apos;s Connect!
               </p>
               <p className="text-gray-600 dark:text-gray-300 mb-6">
-                If you&apos;re looking for a passionate web developer to collaborate with, 
-                or if you have any exciting projects in mind, feel free to reach out. 
-                I&apos;m always excited about working on new challenges and creating impactful digital experiences!
+                I&apos;m always eager to connect with fellow developers, tech enthusiasts,
+                and professionals in the industry. Whether it&apos;s discussing new technologies,
+                sharing ideas, or networking, feel free to reach out!
               </p>
-              
+
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
