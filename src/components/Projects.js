@@ -31,17 +31,19 @@ export default function Projects() {
       live: 'https://work-oura.vercel.app/',
       featured: true
     },
-    {
+      {
       id: 3,
-      title: 'Blog Application',
-      description: 'A full-featured blog platform with article publishing, commenting system, and user management for content creators.',
-      image: '/Images/BLOGAPP.png',
-  technologies: ['Next.js', 'Sanity', 'TypeScript', 'Tailwind CSS'],
+      title: 'Health Mate - AI Health Companion',
+      description: 'AI-powered health platform that analyzes medical reports using Gemini 2.5 AI, providing bilingual summaries, vital tracking, and personalized health insights. Built in 12 hours at Saylani Hackathon - Won 2nd Position 🏆',
+      image: '/Images/health-mate.png',
+      technologies: ['Next.js', 'Node.js', 'Gemini AI', 'Tailwind CSS'],
       category: 'Full-Stack',
-      github: 'https://github.com/ALIRAZA4278/Milestone-3-blog-app',
-      live: 'https://milestone-3-blog-app.vercel.app/',
-      featured: true
+      github: 'https://github.com/ALIRAZA4278/HealthMate-hackathon',
+      live: 'https://health-mate-hackathon.vercel.app/',
+      featured: true,
+      achievement: '2nd Position - Saylani Hackathon'
     },
+    
     {
       id: 4,
       title: 'Resume Builder',
@@ -86,7 +88,18 @@ export default function Projects() {
       live: 'https://news-app-flame-eta.vercel.app/',
       featured: true
     },
-   
+  {
+      id: 8,
+      title: 'Blog Application',
+      description: 'A full-featured blog platform with article publishing, commenting system, and user management for content creators.',
+      image: '/Images/BLOGAPP.png',
+  technologies: ['Next.js', 'Sanity', 'TypeScript', 'Tailwind CSS'],
+      category: 'Full-Stack',
+      github: 'https://github.com/ALIRAZA4278/Milestone-3-blog-app',
+      live: 'https://milestone-3-blog-app.vercel.app/',
+      featured: true
+    },
+
   ];
 
   const categories = ['All', 'E-commerce', 'Full-Stack', 'Web App', 'Chatbot'];
@@ -173,11 +186,18 @@ export default function Projects() {
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
-                  {project.featured && (
-                    <div className="absolute top-4 right-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium z-10">
-                      Featured
-                    </div>
-                  )}
+                  <div className="absolute top-4 right-4 flex flex-col gap-2 z-10">
+                    {project.featured && (
+                      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">
+                        Featured
+                      </div>
+                    )}
+                    {project.achievement && (
+                      <div className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-medium">
+                        {project.achievement}
+                      </div>
+                    )}
+                  </div>
                   
                   {/* Overlay with Links */}
                   <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-10">

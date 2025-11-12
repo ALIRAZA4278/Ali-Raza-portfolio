@@ -57,7 +57,7 @@ export default function Footer() {
               className="text-center"
             >
               <nav className="flex flex-wrap justify-center gap-6">
-                {['Home', 'About', 'Skills', 'Projects', 'Contact'].map((item) => (
+                {['Home', 'About', 'Experience', 'Skills', 'Projects', 'Contact'].map((item) => (
                   <motion.button
                     key={item}
                     onClick={() => {

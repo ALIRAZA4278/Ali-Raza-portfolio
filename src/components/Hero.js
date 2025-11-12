@@ -145,7 +145,7 @@ export default function Hero() {
               {/* Profile Content */}
               <div className="relative w-full h-full bg-white dark:bg-gray-800 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl">
                 <Image
-                  src="/Images/ali final 2.png"
+                  src="/Images/ali final 3.png"
                   alt="Ali Raza Profile Picture"
                   fill
                   className="object-cover"
