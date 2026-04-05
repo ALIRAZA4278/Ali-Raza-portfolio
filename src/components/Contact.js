@@ -2,12 +2,12 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  FaEnvelope, 
-  FaPhone, 
-  FaMapMarkerAlt, 
-  FaGithub, 
-  FaLinkedin, 
+import {
+  FaEnvelope,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaGithub,
+  FaLinkedin,
   FaInstagram,
   FaPaperPlane,
   FaCopy,
@@ -24,7 +24,7 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
-  const [emailCopied, setEmailCopied] = useState(false);
+  const [copiedField, setCopiedField] = useState('');
 
   const contactInfo = [
     {
@@ -64,13 +64,13 @@ export default function Contact() {
     });
   };
 
-  const copyToClipboard = async (text) => {
+  const copyToClipboard = async (text, field) => {
     try {
       await navigator.clipboard.writeText(text);
-      setEmailCopied(true);
-      setTimeout(() => setEmailCopied(false), 2000);
+      setCopiedField(field);
+      setTimeout(() => setCopiedField(''), 2000);
     } catch (err) {
-      console.error('Failed to copy: ', err);
+      // Fallback silently
     }
   };
 
@@ -88,18 +88,14 @@ export default function Contact() {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
-
       if (response.ok) {
         setSubmitStatus('success');
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
         setSubmitStatus('error');
-        console.error('Error:', data.error);
       }
     } catch (error) {
       setSubmitStatus('error');
-      console.error('Network error:', error);
     } finally {
       setIsSubmitting(false);
       setTimeout(() => setSubmitStatus(''), 5000);
@@ -117,11 +113,11 @@ export default function Contact() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Get In <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Touch</span>
+            Let&apos;s <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Work Together</span>
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
-            I&apos;m always eager to connect with fellow developers, tech enthusiasts, and industry professionals.
-            Let&apos;s network and share ideas!
+            Have a project in mind? Need a full-stack developer with AI skills?
+            Or just want to say hi? I&apos;d love to hear from you.
           </p>
           <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
         </motion.div>
@@ -134,12 +130,13 @@ export default function Contact() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-              Let&apos;s Connect!
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+              Get in Touch
             </h3>
             <p className="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-              Whether you want to discuss technology, exchange ideas, or just connect,
-              I&apos;d love to hear from you. Feel free to reach out through any of the channels below.
+              Whether it&apos;s a web app, an AI-powered chatbot, or a complete full-stack solution &mdash;
+              I&apos;m ready to bring your idea to life. Drop me a message and I&apos;ll get back
+              within 24 hours.
             </p>
 
             {/* Contact Info Cards */}
@@ -162,12 +159,13 @@ export default function Contact() {
                   </div>
                   {info.copyable && (
                     <motion.button
-                      onClick={() => copyToClipboard(info.value)}
+                      onClick={() => copyToClipboard(info.value, info.title)}
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       className="flex-shrink-0 p-2 text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors opacity-0 group-hover:opacity-100"
+                      aria-label={`Copy ${info.title}`}
                     >
-                      {emailCopied && info.title === 'Email' ? <FaCheck /> : <FaCopy />}
+                      {copiedField === info.title ? <FaCheck className="text-green-500" /> : <FaCopy />}
                     </motion.button>
                   )}
                 </motion.div>
@@ -198,6 +196,22 @@ export default function Contact() {
                 ))}
               </div>
             </div>
+
+            {/* Availability Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              viewport={{ once: true }}
+              className="mt-8 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg"
+            >
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                <span className="font-medium text-green-700 dark:text-green-400">
+                  Available for freelance projects & full-time opportunities
+                </span>
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* Contact Form */}
@@ -269,7 +283,7 @@ export default function Contact() {
                   value={formData.subject}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-colors"
-                  placeholder="What's this about?"
+                  placeholder="Project inquiry, collaboration, or just saying hi!"
                 />
               </motion.div>
 
@@ -290,7 +304,7 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-colors resize-none"
-                  placeholder="Share your thoughts or just say hello!"
+                  placeholder="Tell me about your project, timeline, and budget..."
                 ></textarea>
               </motion.div>
 
@@ -330,8 +344,8 @@ export default function Contact() {
                   }`}
                 >
                   {submitStatus === 'success'
-                    ? '✅ Thank you! Your message has been sent successfully. I\'ll get back to you soon!'
-                    : '❌ Sorry, there was an error sending your message. Please try again or contact me directly.'}
+                    ? 'Thank you! Your message has been sent successfully. I\'ll get back to you within 24 hours!'
+                    : 'Sorry, there was an error sending your message. Please try again or reach out directly via email.'}
                 </motion.div>
               )}
             </form>

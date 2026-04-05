@@ -1,6 +1,15 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
+function sanitizeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 export async function POST(request) {
   try {
     const { name, email, subject, message } = await request.json();
@@ -13,10 +22,20 @@ export async function POST(request) {
       );
     }
 
-    console.log('Environment variables check:', {
-      user: process.env.NM_EMAIL_USER ? 'Set' : 'Missing',
-      pass: process.env.NM_EMAIL_PW ? 'Set' : 'Missing'
-    });
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: 'Invalid email format' },
+        { status: 400 }
+      );
+    }
+
+    // Sanitize all user inputs
+    const safeName = sanitizeHtml(name);
+    const safeEmail = sanitizeHtml(email);
+    const safeSubject = sanitizeHtml(subject);
+    const safeMessage = sanitizeHtml(message);
 
     // Create transporter
     const transporter = nodemailer.createTransport({
@@ -32,11 +51,9 @@ export async function POST(request) {
     // Verify transporter configuration
     try {
       await transporter.verify();
-      console.log('SMTP connection verified successfully');
     } catch (verifyError) {
-      console.error('SMTP verification failed:', verifyError);
       return NextResponse.json(
-        { error: 'SMTP configuration error', details: String(verifyError) },
+        { error: 'Email service is temporarily unavailable. Please try again later.' },
         { status: 500 }
       );
     }
@@ -45,29 +62,29 @@ export async function POST(request) {
     const mailToYou = {
       from: process.env.NM_EMAIL_USER,
       to: process.env.NM_EMAIL_USER,
-      subject: `New Portfolio Contact: ${subject}`,
+      subject: `New Portfolio Contact: ${safeSubject}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #3b82f6; border-bottom: 2px solid #3b82f6; padding-bottom: 10px;">
             New Contact Form Submission
           </h2>
-          
+
           <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-            <p><strong>Subject:</strong> ${subject}</p>
+            <p><strong>Name:</strong> ${safeName}</p>
+            <p><strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a></p>
+            <p><strong>Subject:</strong> ${safeSubject}</p>
           </div>
-          
+
           <div style="background-color: #ffffff; padding: 20px; border-left: 4px solid #3b82f6;">
             <h3 style="color: #374151; margin-top: 0;">Message:</h3>
-            <p style="line-height: 1.6; color: #4b5563;">${message}</p>
+            <p style="line-height: 1.6; color: #4b5563;">${safeMessage}</p>
           </div>
-          
+
           <div style="text-align: center; margin-top: 30px;">
-            <a href="mailto:${email}" style="display: inline-block; background-color: #3b82f6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-right: 10px;">Reply Now</a>
+            <a href="mailto:${safeEmail}" style="display: inline-block; background-color: #3b82f6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-right: 10px;">Reply Now</a>
             <a href="https://wa.me/+923212865058" style="display: inline-block; background-color: #25d366; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">WhatsApp</a>
           </div>
-          
+
           <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #f1f5f9; border-radius: 8px;">
             <p style="color: #64748b; font-size: 14px;">
               This email was sent from your portfolio contact form.
@@ -82,49 +99,49 @@ export async function POST(request) {
       from: process.env.NM_EMAIL_USER,
       to: email,
       replyTo: process.env.NM_EMAIL_USER,
-      subject: `Thank you for contacting me, ${name}!`,
+      subject: `Thank you for contacting me, ${safeName}!`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #10b981; border-bottom: 2px solid #10b981; padding-bottom: 10px;">
             Thank You for Reaching Out!
           </h2>
-          
+
           <p style="font-size: 16px; line-height: 1.6; color: #374151;">
-            Hi <strong>${name}</strong>,
+            Hi <strong>${safeName}</strong>,
           </p>
-          
+
           <p style="font-size: 16px; line-height: 1.6; color: #374151;">
             Thank you for contacting me through my portfolio! I've received your message and will get back to you as soon as possible.
           </p>
-          
+
           <div style="background-color: #f0f9ff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #0ea5e9;">
             <h3 style="color: #374151; margin-top: 0;">Your Message Summary:</h3>
-            <p><strong>Subject:</strong> ${subject}</p>
-            <p><strong>Message:</strong> "${message}"</p>
+            <p><strong>Subject:</strong> ${safeSubject}</p>
+            <p><strong>Message:</strong> "${safeMessage}"</p>
           </div>
-          
+
           <div style="background-color: #fef3c7; padding: 15px; border-radius: 8px; margin: 20px 0;">
             <p style="color: #92400e; margin: 0;">
               <strong>Expected Response Time:</strong> I typically respond within 24-48 hours.
             </p>
           </div>
-          
+
           <p style="font-size: 16px; line-height: 1.6; color: #374151;">
             In the meantime, feel free to connect with me on:
           </p>
-          
+
           <div style="text-align: center; margin: 30px 0;">
             <a href="https://www.linkedin.com/in/ali-raza-4a5762282/" style="display: inline-block; margin: 0 10px; padding: 10px 20px; background-color: #0077b5; color: white; text-decoration: none; border-radius: 5px;">LinkedIn</a>
             <a href="https://github.com/ALIRAZA4278" style="display: inline-block; margin: 0 10px; padding: 10px 20px; background-color: #333; color: white; text-decoration: none; border-radius: 5px;">GitHub</a>
             <a href="https://wa.me/+923212865058" style="display: inline-block; margin: 0 10px; padding: 10px 20px; background-color: #25d366; color: white; text-decoration: none; border-radius: 5px;">WhatsApp</a>
           </div>
-          
+
           <p style="font-size: 16px; line-height: 1.6; color: #374151;">
             Best regards,<br>
             <strong>Ali Raza</strong><br>
             <em>Full-Stack Developer</em>
           </p>
-          
+
           <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #f1f5f9; border-radius: 8px;">
             <p style="color: #64748b; font-size: 14px; margin: 0;">
               This is an automated response. Please do not reply to this email.
@@ -135,31 +152,17 @@ export async function POST(request) {
     };
 
     // Send emails
-    try {
-      console.log('Sending email to owner...');
-      const sendResult1 = await transporter.sendMail(mailToYou);
-      console.log('Email to owner sent successfully:', sendResult1.messageId);
+    await transporter.sendMail(mailToYou);
+    await transporter.sendMail(autoReplyToUser);
 
-      console.log('Sending auto-reply to user...');
-      const sendResult2 = await transporter.sendMail(autoReplyToUser);
-      console.log('Auto-reply sent successfully:', sendResult2.messageId);
-
-      return NextResponse.json(
-        { message: 'Emails sent successfully!' },
-        { status: 200 }
-      );
-    } catch (sendErr) {
-      console.error('Error during email sending:', sendErr);
-      return NextResponse.json(
-        { error: 'Failed to send email(s)', details: String(sendErr) },
-        { status: 500 }
-      );
-    }
+    return NextResponse.json(
+      { message: 'Emails sent successfully!' },
+      { status: 200 }
+    );
 
   } catch (error) {
-    console.error('General error in contact API:', error);
     return NextResponse.json(
-      { error: 'Internal server error', details: String(error) },
+      { error: 'Internal server error. Please try again later.' },
       { status: 500 }
     );
   }

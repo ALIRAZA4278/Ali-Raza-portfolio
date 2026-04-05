@@ -9,56 +9,31 @@ export default function FloatingElements() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Check if mobile device
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-  // Debug: Check if component is mounting
-  useEffect(() => {
-    console.log('FloatingElements component mounted, isMobile:', isMobile);
-  }, [isMobile]);
 
   useEffect(() => {
     const handleScroll = () => {
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = (winScroll / height) * 100;
-      
+
       setScrollProgress(scrolled);
-      
-      // Get hero section height to determine when to show floating elements
-      const heroSection = document.getElementById('home') || document.querySelector('.hero-section');
-      let heroHeight = 400; // Default fallback
-      
-      if (heroSection) {
-        heroHeight = heroSection.offsetHeight;
-        // Adjust for mobile vs desktop
-        const offset = isMobile ? 50 : 100;
-        heroHeight = heroHeight - offset;
-      } else {
-        // Fallback based on device type
-        heroHeight = isMobile ? 300 : 500;
-      }
-      
-      // Show elements after scrolling past hero section
-      const shouldShow = winScroll > heroHeight;
-      console.log('Scroll check - winScroll:', winScroll, 'heroHeight:', heroHeight, 'shouldShow:', shouldShow, 'isMobile:', isMobile);
-      setIsVisible(shouldShow);
+      setIsVisible(winScroll > 300);
     };
 
-    // Set initial visibility
     handleScroll();
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isMobile]);
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -69,15 +44,15 @@ export default function FloatingElements() {
   };
 
   const handleEmail = () => {
-    // Scroll to contact section instead of opening mailto
     const contactSection = document.querySelector('#contact');
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
     } else {
-      // Fallback to mailto if contact section not found
       window.location.href = 'mailto:af912923@gmail.com';
     }
   };
+
+  const buttonSize = isMobile ? '48px' : '56px';
 
   return (
     <>
@@ -88,9 +63,14 @@ export default function FloatingElements() {
         initial={{ scaleX: 0 }}
         animate={{ scaleX: scrollProgress / 100 }}
         transition={{ duration: 0.1 }}
+        role="progressbar"
+        aria-valuenow={Math.round(scrollProgress)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label="Page scroll progress"
       />
 
-      {/* Floating Action Buttons - Mobile Optimized */}
+      {/* Floating Action Buttons */}
       <AnimatePresence>
         {isVisible && (
           <motion.div
@@ -108,49 +88,29 @@ export default function FloatingElements() {
             }}
           >
             {/* WhatsApp Button */}
-            <motion.button
-              onClick={handleWhatsApp}
-              whileHover={{ scale: 1.1, rotate: 5 }}
+            <motion.a
+              href="https://wa.me/+923212865058"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="floating-button p-3 sm:p-4 bg-green-500 text-white rounded-full shadow-2xl hover:shadow-2xl transition-all relative overflow-hidden"
-              style={{
-                width: isMobile ? '48px' : '56px',
-                height: isMobile ? '48px' : '56px',
-                minWidth: isMobile ? '48px' : '56px',
-                minHeight: isMobile ? '48px' : '56px'
-              }}
-              title="WhatsApp"
+              className="floating-button flex items-center justify-center bg-green-500 text-white rounded-full shadow-2xl hover:bg-green-600 transition-colors"
+              style={{ width: buttonSize, height: buttonSize }}
+              aria-label="Chat on WhatsApp"
             >
-              <motion.div
-                className="absolute inset-0 bg-green-600"
-                initial={{ scale: 0 }}
-                whileHover={{ scale: 1 }}
-                transition={{ duration: 0.3 }}
-              />
-              <FaWhatsapp size={isMobile ? 20 : 24} className="relative z-10" />
-            </motion.button>
+              <FaWhatsapp size={isMobile ? 20 : 24} />
+            </motion.a>
 
             {/* Email Button */}
             <motion.button
               onClick={handleEmail}
-              whileHover={{ scale: 1.1, rotate: -5 }}
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="floating-button p-3 sm:p-4 bg-red-500 text-white rounded-full shadow-2xl hover:shadow-2xl transition-all relative overflow-hidden"
-              style={{
-                width: isMobile ? '48px' : '56px',
-                height: isMobile ? '48px' : '56px',
-                minWidth: isMobile ? '48px' : '56px',
-                minHeight: isMobile ? '48px' : '56px'
-              }}
-              title="Email"
+              className="floating-button flex items-center justify-center bg-red-500 text-white rounded-full shadow-2xl hover:bg-red-600 transition-colors"
+              style={{ width: buttonSize, height: buttonSize }}
+              aria-label="Send email"
             >
-              <motion.div
-                className="absolute inset-0 bg-red-600"
-                initial={{ scale: 0 }}
-                whileHover={{ scale: 1 }}
-                transition={{ duration: 0.3 }}
-              />
-              <FaEnvelope size={isMobile ? 20 : 24} className="relative z-10" />
+              <FaEnvelope size={isMobile ? 20 : 24} />
             </motion.button>
 
             {/* Back to Top Button */}
@@ -158,14 +118,9 @@ export default function FloatingElements() {
               onClick={scrollToTop}
               whileHover={{ scale: 1.1, y: -5 }}
               whileTap={{ scale: 0.9 }}
-              className="floating-button p-3 sm:p-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full shadow-2xl hover:shadow-2xl transition-all relative overflow-hidden"
-              style={{
-                width: isMobile ? '48px' : '56px',
-                height: isMobile ? '48px' : '56px',
-                minWidth: isMobile ? '48px' : '56px',
-                minHeight: isMobile ? '48px' : '56px'
-              }}
-              title={`Back to Top (${Math.round(scrollProgress)}%)`}
+              className="floating-button flex items-center justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full shadow-2xl transition-all"
+              style={{ width: buttonSize, height: buttonSize }}
+              aria-label={`Back to top - ${Math.round(scrollProgress)}% scrolled`}
             >
               {/* Progress Ring */}
               <svg
@@ -197,15 +152,13 @@ export default function FloatingElements() {
                   }}
                 />
               </svg>
-              
-              {/* Arrow Icon */}
+
               <motion.div
                 animate={{ y: [0, -2, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
                 className="relative z-10 flex items-center justify-center"
-                style={{ transform: 'translateZ(0)' }}
               >
-                <FaArrowUp size={isMobile ? 12 : 14} className="sm:w-[18px] sm:h-[18px]" />
+                <FaArrowUp size={isMobile ? 12 : 14} />
               </motion.div>
             </motion.button>
           </motion.div>

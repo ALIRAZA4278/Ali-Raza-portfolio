@@ -1,67 +1,82 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { 
-  FaHtml5, 
-  FaCss3Alt, 
-  FaJs, 
-  FaReact, 
-  FaNodeJs, 
+import {
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaReact,
+  FaNodeJs,
   FaGitAlt,
   FaDatabase,
-  FaMobile
+  FaMobile,
+  FaRobot
 } from 'react-icons/fa';
-import { 
-  SiTypescript, 
-  SiTailwindcss, 
-  SiNextdotjs, 
+import {
+  SiTypescript,
+  SiTailwindcss,
+  SiNextdotjs,
   SiMongodb,
   SiExpress,
-  SiFramer
+  SiFramer,
+  SiOpenai,
+  SiDialogflow
 } from 'react-icons/si';
 
 export default function Skills() {
   const skillCategories = [
     {
       title: 'Frontend Development',
-      description: 'Building structured, semantic and responsive web interfaces',
+      description: 'Building pixel-perfect, responsive interfaces that users love',
       skills: [
-        { name: 'HTML5', icon: FaHtml5, color: 'text-orange-500', proficiency: 'Expert', stars: 5 },
-        { name: 'CSS3', icon: FaCss3Alt, color: 'text-blue-500', proficiency: 'Advanced', stars: 4 },
-        { name: 'JavaScript', icon: FaJs, color: 'text-yellow-500', proficiency: 'Expert', stars: 5 },
-        { name: 'TypeScript', icon: SiTypescript, color: 'text-blue-600', proficiency: 'Advanced', stars: 4 },
-        { name: 'React', icon: FaReact, color: 'text-cyan-500', proficiency: 'Advanced', stars: 4 },
-        { name: 'Next.js', icon: SiNextdotjs, color: 'text-gray-900 dark:text-white', proficiency: 'Advanced', stars: 4 },
-        { name: 'Tailwind CSS', icon: SiTailwindcss, color: 'text-cyan-400', proficiency: 'Expert', stars: 5 }
+        { name: 'HTML5', icon: FaHtml5, color: 'text-orange-500', proficiency: 'Expert' },
+        { name: 'CSS3', icon: FaCss3Alt, color: 'text-blue-500', proficiency: 'Expert' },
+        { name: 'JavaScript', icon: FaJs, color: 'text-yellow-500', proficiency: 'Expert' },
+        { name: 'TypeScript', icon: SiTypescript, color: 'text-blue-600', proficiency: 'Advanced' },
+        { name: 'React', icon: FaReact, color: 'text-cyan-500', proficiency: 'Expert' },
+        { name: 'Next.js', icon: SiNextdotjs, color: 'text-gray-900 dark:text-white', proficiency: 'Expert' },
+        { name: 'Tailwind CSS', icon: SiTailwindcss, color: 'text-cyan-400', proficiency: 'Expert' }
       ]
     },
     {
       title: 'Backend Development',
-      description: 'Building server-side applications with focus on performance',
+      description: 'Scalable server-side solutions with robust API architecture',
       skills: [
-        { name: 'Node.js', icon: FaNodeJs, color: 'text-green-500', proficiency: 'Advanced', stars: 4 },
-        { name: 'Express.js', icon: SiExpress, color: 'text-gray-600 dark:text-gray-300', proficiency: 'Intermediate', stars: 3 },
-        { name: 'MongoDB', icon: SiMongodb, color: 'text-green-600', proficiency: 'Advanced', stars: 4 }
+        { name: 'Node.js', icon: FaNodeJs, color: 'text-green-500', proficiency: 'Advanced' },
+        { name: 'Express.js', icon: SiExpress, color: 'text-gray-600 dark:text-gray-300', proficiency: 'Advanced' },
+        { name: 'MongoDB', icon: SiMongodb, color: 'text-green-600', proficiency: 'Advanced' },
+        { name: 'REST APIs', icon: FaDatabase, color: 'text-indigo-500', proficiency: 'Expert' }
       ]
     },
     {
-      title: 'Tools & Technologies',
-      description: 'Development tools and modern technologies I work with',
+      title: 'AI & Automation',
+      description: 'Integrating artificial intelligence into real-world products',
       skills: [
-        { name: 'Git & GitHub', icon: FaGitAlt, color: 'text-orange-600', proficiency: 'Advanced', stars: 4 },
-        { name: 'Framer Motion', icon: SiFramer, color: 'text-pink-500', proficiency: 'Intermediate', stars: 3 },
-        { name: 'Responsive Design', icon: FaMobile, color: 'text-purple-500', proficiency: 'Expert', stars: 5 },
-        { name: 'API Development', icon: FaDatabase, color: 'text-indigo-500', proficiency: 'Advanced', stars: 4 }
+        { name: 'OpenAI API', icon: SiOpenai, color: 'text-green-500', proficiency: 'Advanced' },
+        { name: 'Gemini AI', icon: FaRobot, color: 'text-blue-500', proficiency: 'Advanced' },
+        { name: 'Dialogflow', icon: SiDialogflow, color: 'text-orange-500', proficiency: 'Advanced' },
+        { name: 'AI Chatbots', icon: FaRobot, color: 'text-purple-500', proficiency: 'Advanced' }
+      ]
+    },
+    {
+      title: 'Tools & Workflow',
+      description: 'Modern development tools that keep me productive',
+      skills: [
+        { name: 'Git & GitHub', icon: FaGitAlt, color: 'text-orange-600', proficiency: 'Expert' },
+        { name: 'Framer Motion', icon: SiFramer, color: 'text-pink-500', proficiency: 'Advanced' },
+        { name: 'Responsive Design', icon: FaMobile, color: 'text-purple-500', proficiency: 'Expert' }
       ]
     }
   ];
 
   const specializations = [
-    'MERN Stack Development',
+    'Full-Stack MERN Development',
+    'AI Integration & Chatbots',
     'Server-Side Rendering (SSR)',
     'Static Site Generation (SSG)',
-    'RESTful API Design',
-    'Responsive Web Design',
+    'RESTful API Architecture',
+    'Responsive & Mobile-First Design',
+    'OpenAI & Gemini AI Integration',
     'Currently Learning: Agentic AI'
   ];
 
@@ -79,8 +94,8 @@ export default function Skills() {
             My <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Skills</span>
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-6">
-            As a web developer, I&apos;ve established a solid foundation in both front-end and back-end technologies, 
-            with a focus on developing scalable, efficient, and user-friendly applications.
+            4 years of building web applications and integrating AI solutions has given me
+            a versatile toolkit. Here&apos;s what I bring to the table.
           </p>
           <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
         </motion.div>
@@ -92,7 +107,7 @@ export default function Skills() {
               key={category.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: categoryIndex * 0.2 }}
+              transition={{ duration: 0.8, delay: categoryIndex * 0.15 }}
               viewport={{ once: true }}
             >
               <div className="text-center mb-8">
@@ -117,7 +132,7 @@ export default function Skills() {
                   >
                     {/* Background Gradient */}
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    
+
                     {/* Content */}
                     <div className="relative z-10">
                       {/* Skill Icon */}
@@ -135,11 +150,9 @@ export default function Skills() {
                       {/* Experience Level Badge */}
                       <div className="text-center mb-2">
                         <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                          skill.proficiency === 'Expert' 
+                          skill.proficiency === 'Expert'
                             ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300'
-                            : skill.proficiency === 'Advanced'
-                            ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
-                            : 'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300'
+                            : 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
                         }`}>
                           {skill.proficiency}
                         </span>
@@ -148,11 +161,7 @@ export default function Skills() {
                       {/* Skill Level Indicator */}
                       <div className="flex justify-center items-center">
                         <div className={`w-12 h-1 rounded-full ${
-                          skill.proficiency === 'Expert' 
-                            ? 'bg-green-500' 
-                            : skill.proficiency === 'Advanced'
-                            ? 'bg-blue-500'
-                            : 'bg-orange-500'
+                          skill.proficiency === 'Expert' ? 'bg-green-500' : 'bg-blue-500'
                         }`} />
                       </div>
                     </div>
@@ -173,7 +182,7 @@ export default function Skills() {
         >
           <div className="text-center mb-8">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              Specializations
+              What I Specialize In
             </h3>
           </div>
 
@@ -183,12 +192,14 @@ export default function Skills() {
                 key={spec}
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.1 }}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   spec.includes('Currently Learning')
                     ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg'
+                    : spec.includes('AI')
+                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
                     : 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
                 }`}
               >
@@ -207,15 +218,16 @@ export default function Skills() {
           className="mt-16 text-center bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 p-8 rounded-2xl"
         >
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            Full-Stack Expertise
+            Full-Stack + AI &mdash; The Complete Package
           </h3>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            I specialize in building end-to-end web applications using the{' '}
-            <strong className="text-blue-600 dark:text-blue-400">MERN Stack</strong> 
-            {' '}(MongoDB, Express.js, React, Node.js), ensuring seamless integration between 
-            frontend and backend. My focus is on creating high-performance applications with 
-            modern features like SSR, SSG, and API routes using{' '}
-            <strong className="text-purple-600 dark:text-purple-400">Next.js</strong>.
+            I don&apos;t just build websites &mdash; I build intelligent applications. My stack combines the
+            power of the{' '}
+            <strong className="text-blue-600 dark:text-blue-400">MERN Stack</strong>
+            {' '}with AI integrations like{' '}
+            <strong className="text-purple-600 dark:text-purple-400">OpenAI, Gemini AI, and Dialogflow</strong>
+            {' '}to create products that are not just functional, but genuinely smart. From SSR and SSG with
+            Next.js to AI-powered chatbots &mdash; I deliver end-to-end solutions.
           </p>
         </motion.div>
       </div>

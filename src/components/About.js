@@ -1,30 +1,30 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FaCode, FaGraduationCap, FaRocket, FaHeart } from 'react-icons/fa';
+import { FaCode, FaGraduationCap, FaRocket, FaHeart, FaBriefcase, FaUsers, FaRobot } from 'react-icons/fa';
 import Image from 'next/image';
 
 export default function About() {
   const highlights = [
     {
-      icon: FaGraduationCap,
-      title: 'Education',
-      description: 'Bachelor\'s in Computer Science'
+      icon: FaBriefcase,
+      title: '4+ Years',
+      description: 'Development Experience'
     },
     {
       icon: FaCode,
-      title: 'Specialization',
-      description: 'MERN Stack Development'
+      title: 'Full-Stack',
+      description: 'MERN + AI Integration'
     },
     {
-      icon: FaRocket,
-      title: 'Focus',
-      description: 'Modern Web Applications'
+      icon: FaUsers,
+      title: '5+ Clients',
+      description: 'Freelance & Agency Work'
     },
     {
-      icon: FaHeart,
-      title: 'Passion',
-      description: 'Clean, Efficient Code'
+      icon: FaRobot,
+      title: 'AI Powered',
+      description: 'OpenAI & Chatbot Solutions'
     }
   ];
 
@@ -57,13 +57,17 @@ export default function About() {
               {/* Decorative Elements */}
               <div className="absolute -top-6 -left-6 w-20 h-20 bg-blue-500 rounded-full opacity-20 animate-pulse"></div>
               <div className="absolute -bottom-6 -right-6 w-16 h-16 bg-purple-500 rounded-full opacity-30 animate-pulse delay-1000"></div>
-              
+
               {/* Main Image Container */}
               <div className="relative w-full h-full bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl p-1 shadow-2xl">
-                <div className="w-full h-full bg-gray-200 dark:bg-gray-700 rounded-2xl overflow-hidden flex items-center justify-center">
-                  <div className="text-6xl font-bold text-blue-600 dark:text-blue-400">
-                    AR
-                  </div>
+                <div className="w-full h-full bg-gray-200 dark:bg-gray-700 rounded-2xl overflow-hidden">
+                  <Image
+                    src="/Images/ali final 2.png"
+                    alt="Ali Raza - About Me"
+                    fill
+                    className="object-cover rounded-2xl"
+                    sizes="(max-width: 1024px) 320px, 384px"
+                  />
                 </div>
               </div>
             </div>
@@ -76,31 +80,30 @@ export default function About() {
             viewport={{ once: true }}
           >
             <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-              Let me share a bit about my journey
+              Building digital products that people actually love using
             </h3>
-            
+
             <div className="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed">
               <p>
-                Hello, I&apos;m <strong className="text-blue-600 dark:text-blue-400">Ali Raza</strong>, 
-                a 19-year-old web developer with a great interest in technology and coding. 
-                My curiosity about how websites are constructed led me to pursue web development, 
-                and I&apos;ve subsequently honed a diverse set of abilities to transform ideas into 
-                effective, user-centric solutions.
+                Hey! I&apos;m <strong className="text-blue-600 dark:text-blue-400">Ali Raza</strong> &mdash;
+                a 20-year-old full-stack developer from Karachi with 4+ years of hands-on experience
+                turning ideas into real, working products. What started as curiosity about how websites
+                work has grown into a career where I build solutions for real businesses every day.
               </p>
-              
+
               <p>
-                I specialize in developing high-performance web applications with the 
-                <strong className="text-purple-600 dark:text-purple-400"> MERN stack</strong>, 
-                ensuring a consistent and engaging user experience across all devices. 
-                I&apos;m passionate about producing clean, efficient code and always learning 
-                new technologies to stay on the cutting edge of web development.
+                I work at <strong className="text-purple-600 dark:text-purple-400">MS Capital Soft</strong> as
+                a Full-Stack Developer, where I contribute to production platforms
+                like <strong>Adspoke</strong>, <strong>ActiveCalculator</strong>, and <strong>Selvo</strong>.
+                On the side, I&apos;ve delivered projects for 5+ freelance clients &mdash; from e-commerce
+                stores and agency websites to AI-powered chatbots.
               </p>
-              
+
               <p>
-                Currently, I&apos;m expanding my expertise by learning 
-                <strong className="text-green-600 dark:text-green-400"> Agentic AI</strong>, 
-                combining my web development skills with artificial intelligence to create 
-                even more innovative solutions.
+                What makes me different? I don&apos;t just build frontends or backends &mdash; I integrate
+                <strong className="text-green-600 dark:text-green-400"> AI into real products</strong>.
+                From OpenAI-powered chatbots to Gemini AI health analyzers, I love combining
+                web development with artificial intelligence to create solutions that are genuinely useful.
               </p>
             </div>
 
@@ -123,6 +126,34 @@ export default function About() {
               ))}
             </div>
 
+            {/* Education & Certifications */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="mt-8 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 p-5 rounded-xl"
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <FaGraduationCap className="text-blue-600 dark:text-blue-400 text-xl" />
+                <h4 className="font-semibold text-gray-900 dark:text-white">Education & Certifications</h4>
+              </div>
+              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                <li className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 flex-shrink-0"></span>
+                  <span><strong>BSCS</strong> &mdash; Ziauddin University (3rd Semester)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 bg-purple-500 rounded-full mt-1.5 flex-shrink-0"></span>
+                  <span><strong>Web Development</strong> &mdash; Saylani Mass IT Training (Certified)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full mt-1.5 flex-shrink-0"></span>
+                  <span><strong>AI Chatbot Development</strong> &mdash; Saylani Mass IT Training (Certified)</span>
+                </li>
+              </ul>
+            </motion.div>
+
             {/* CTA */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -131,13 +162,9 @@ export default function About() {
               viewport={{ once: true }}
               className="mt-8"
             >
-              <p className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                Let&apos;s Connect!
-              </p>
               <p className="text-gray-600 dark:text-gray-300 mb-6">
-                I&apos;m always eager to connect with fellow developers, tech enthusiasts,
-                and professionals in the industry. Whether it&apos;s discussing new technologies,
-                sharing ideas, or networking, feel free to reach out!
+                Got an idea you want to bring to life? Whether it&apos;s a web app, an AI-powered tool,
+                or something completely out of the box &mdash; I&apos;d love to hear about it.
               </p>
 
               <motion.button
@@ -146,7 +173,7 @@ export default function About() {
                 onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-medium hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
               >
-                Get In Touch
+                Let&apos;s Talk About Your Project
               </motion.button>
             </motion.div>
           </motion.div>

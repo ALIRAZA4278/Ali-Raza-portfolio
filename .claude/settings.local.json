@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx next:*)",
+      "Bash(gh api:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:apex-technify.vercel.app)",
+      "Bash(cp \"BLOGAPP.png\" \"PROJECTS/blog-app.png\")",
+      "Bash(cp \"Ecommerce.png\" \"PROJECTS/ecommerce.png\")",
+      "Bash(cp \"job-app.png\" \"PROJECTS/job-portal.png\")",
+      "Bash(cp \"news-app.png\" \"PROJECTS/news-app.png\")",
+      "Bash(cp \"pizza chatbot.jpg\" \"PROJECTS/pizza-chatbot.jpg\")",
+      "Bash(curl -sL --max-time 15 \"https://gracepointmedicalstaffing.com/\")",
+      "Bash(curl -sL --max-time 15 \"https://qualitycareseniorliving.com/\")",
+      "Bash(curl -sL --max-time 15 \"https://ndisbeautycollective.com.au/\")",
+      "Bash(npx --yes capture-website-cli@4 \"https://gracepointmedicalstaffing.com\" --output=gracepoint.png --width=1280 --height=800 --delay=3)",
+      "Bash(read f:*)",
+      "Bash([ -f \"public/Images/PROJECTS/$f\" ])",
+      "WebFetch(domain:www.connectiva.ch)",
+      "WebFetch(domain:halwai.vercel.app)",
+      "WebFetch(domain:blendwise.vercel.app)",
+      "Bash(ls:*)"
+    ]
+  }
+}

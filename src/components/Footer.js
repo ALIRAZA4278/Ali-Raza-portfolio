@@ -6,7 +6,7 @@ import { FaXTwitter } from 'react-icons/fa6';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  
+
   const socialLinks = [
     { icon: FaGithub, href: 'https://github.com/ALIRAZA4278', label: 'GitHub', color: 'hover:text-gray-300' },
     { icon: FaLinkedin, href: 'https://www.linkedin.com/in/ali-raza-4a5762282/', label: 'LinkedIn', color: 'hover:text-blue-400' },
@@ -19,7 +19,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-gray-900 text-white relative overflow-hidden">
+    <footer className="bg-gray-900 text-white relative overflow-hidden" role="contentinfo">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -43,8 +43,8 @@ export default function Footer() {
                 Ali Raza
               </h3>
               <p className="text-gray-400 leading-relaxed max-w-md mx-auto lg:mx-0">
-                A passionate 19-year-old web developer crafting modern, responsive, 
-                and user-centric digital experiences with the latest technologies.
+                Full-Stack Developer &amp; AI Integration Specialist with 4+ years of experience
+                building high-performance web applications and intelligent solutions.
               </p>
             </motion.div>
 
@@ -56,7 +56,7 @@ export default function Footer() {
               viewport={{ once: true }}
               className="text-center"
             >
-              <nav className="flex flex-wrap justify-center gap-6">
+              <nav aria-label="Footer navigation" className="flex flex-wrap justify-center gap-6">
                 {['Home', 'About', 'Experience', 'Skills', 'Projects', 'Contact'].map((item) => (
                   <motion.button
                     key={item}
@@ -107,14 +107,8 @@ export default function Footer() {
 
         {/* Bottom Section */}
         <div className="py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-gray-400 text-sm text-center sm:text-left flex items-center gap-2"
-          >
-            © {currentYear} Ali Raza. Made with 
+          <p className="text-gray-400 text-sm text-center sm:text-left flex items-center gap-2">
+            &copy; {currentYear} Ali Raza. Made with
             <motion.span
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 1, repeat: Infinity }}
@@ -122,20 +116,14 @@ export default function Footer() {
             >
               <FaHeart size={14} />
             </motion.span>
-            and lots of ☕
-          </motion.p>
+            and lots of coffee
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-4"
-          >
+          <div className="flex items-center gap-4">
             <p className="text-gray-400 text-sm">
               Built with Next.js & Tailwind CSS
             </p>
-            
+
             {/* Back to Top Button */}
             <motion.button
               onClick={scrollToTop}
@@ -146,33 +134,12 @@ export default function Footer() {
             >
               <FaArrowUp size={16} />
             </motion.button>
-          </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* Animated Background Elements */}
+      {/* Bottom gradient line */}
       <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 opacity-50"></div>
-      
-      {/* Floating Particles */}
-      {[...Array(5)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-blue-400 rounded-full opacity-30"
-          initial={{
-            x: Math.random() * 1200,
-            y: Math.random() * 400
-          }}
-          animate={{
-            y: [0, -20, 0],
-            opacity: [0.3, 0.8, 0.3],
-          }}
-          transition={{
-            duration: 3 + Math.random() * 2,
-            repeat: Infinity,
-            delay: Math.random() * 2
-          }}
-        />
-      ))}
     </footer>
   );
 }

@@ -4,109 +4,15 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt, FaFilter } from 'react-icons/fa';
 import Image from 'next/image';
+import { allProjects, filterCategories } from '../data/projects';
 
 export default function Projects() {
   const [filter, setFilter] = useState('All');
+  const [expandedTech, setExpandedTech] = useState(null);
 
-  const projects = [
-    {
-      id: 1,
-      title: 'Furniture E-commerce Website',
-      description: 'A modern furniture e-commerce platform with product catalog, shopping cart, and responsive design for seamless furniture shopping experience.',
-      image: '/Images/Ecommerce.png',
-  technologies: ['Next.js', 'Sanity', 'TypeScript', 'Tailwind CSS', 'JavaScript'],
-  category: 'E-commerce',
-      github: 'https://github.com/ALIRAZA4278/Milestone3-basic-e-commerce',
-      live: 'https://furniture-ecommerce3.vercel.app/',
-      featured: true
-    },
-     {
-      id: 2,
-      title: 'Work Oura - Job Portal',
-      description: 'A comprehensive job portal platform connecting job seekers with employers, featuring job posting, application tracking, and career matching.',
-      image: '/Images/job-app.png',
-      technologies: ['Next.js', 'MongoDB', 'Clerk', 'Framer Motion', 'API Integration'],
-      category: 'Full-Stack',
-      github: 'https://github.com/ALIRAZA4278/work-oura',
-      live: 'https://work-oura.vercel.app/',
-      featured: true
-    },
-      {
-      id: 3,
-      title: 'Health Mate - AI Health Companion',
-      description: 'AI-powered health platform that analyzes medical reports using Gemini 2.5 AI, providing bilingual summaries, vital tracking, and personalized health insights. Built in 12 hours at Saylani Hackathon - Won 2nd Position 🏆',
-      image: '/Images/health-mate.png',
-      technologies: ['Next.js', 'Node.js', 'Gemini AI', 'Tailwind CSS'],
-      category: 'Full-Stack',
-      github: 'https://github.com/ALIRAZA4278/HealthMate-hackathon',
-      live: 'https://health-mate-hackathon.vercel.app/',
-      featured: true,
-      achievement: '2nd Position - Saylani Hackathon'
-    },
-    
-    {
-      id: 4,
-      title: 'Resume Builder',
-      description: 'An interactive resume builder application that allows users to create professional resumes with multiple templates and export functionality.',
-      image: '/Images/resume-builder.png',
-  technologies: ['HTML', 'CSS', 'TypeScript'],
-      category: 'Web App',
-      github: 'https://github.com/ALIRAZA4278/Resume_builder',
-      live: 'https://resume-builder--inky.vercel.app/',
-      featured: true
-    },
-    {
-      id: 5,
-      title: 'Pizza Ordering Chatbot',
-      description: 'An AI-powered pizza ordering chatbot built using Dialogflow for intent handling and a React frontend for the interactive ordering experience.',
-      image: '/Images/pizza chatbot.jpg',
-      technologies: ['Dialogflow', 'JavaScript', 'React', 'Framer Motion'],
-      category: 'Chatbot',
-      github: 'https://github.com/ALIRAZA4278/PIZZA_CHATBOT',
-      live: 'https://pizza-chatbot.vercel.app/',
-      featured: true
-    },
-    {
-      id: 6,
-      title: 'Vote Hub',
-      description: 'A lightweight voting platform built with plain HTML, CSS, and JavaScript for fast, accessible polling and vote tracking.',
-      image: '/Images/votehub.png',
-      technologies: ['HTML', 'CSS', 'JavaScript'],
-      category: 'Web App',
-      github: 'https://github.com/ALIRAZA4278/Vote_Hub',
-      live: 'https://vote-hub-6iqt.vercel.app/',
-      featured: true
-    },
-    {
-      id: 7,
-      title: 'News Application',
-      description: 'A news application that integrates external news APIs; implemented with plain HTML, CSS and JavaScript for a lightweight, static-feel frontend.',
-      image: '/Images/news-app.png',
-      technologies: ['HTML', 'CSS', 'JavaScript', 'API Integration'],
-      category: 'Web App',
-      github: 'https://github.com/ALIRAZA4278/News-App',
-      live: 'https://news-app-flame-eta.vercel.app/',
-      featured: true
-    },
-  {
-      id: 8,
-      title: 'Blog Application',
-      description: 'A full-featured blog platform with article publishing, commenting system, and user management for content creators.',
-      image: '/Images/BLOGAPP.png',
-  technologies: ['Next.js', 'Sanity', 'TypeScript', 'Tailwind CSS'],
-      category: 'Full-Stack',
-      github: 'https://github.com/ALIRAZA4278/Milestone-3-blog-app',
-      live: 'https://milestone-3-blog-app.vercel.app/',
-      featured: true
-    },
-
-  ];
-
-  const categories = ['All', 'E-commerce', 'Full-Stack', 'Web App', 'Chatbot'];
-
-  const filteredProjects = filter === 'All' 
-    ? projects.slice(0, 6)  // Show only first 6 projects on main page
-    : projects.filter(project => project.category === filter).slice(0, 6);
+  const filteredProjects = filter === 'All'
+    ? allProjects.slice(0, 6)
+    : allProjects.filter(project => project.categories.includes(filter)).slice(0, 6);
 
   return (
     <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-800">
@@ -122,8 +28,8 @@ export default function Projects() {
             My <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Projects</span>
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
-            Here are some of the projects I&apos;ve worked on, showcasing my skills in 
-            full-stack development, modern web technologies, and user experience design.
+            From AI-powered platforms to full-stack applications &mdash; here&apos;s a selection
+            of what I&apos;ve built across personal projects, client work, and hackathons.
           </p>
           <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
         </motion.div>
@@ -138,7 +44,7 @@ export default function Projects() {
         >
           <FaFilter className="text-gray-500 dark:text-gray-400 mb-2 sm:mb-0 sm:mr-2 order-first w-full sm:w-auto text-center sm:text-left" />
           <div className="flex flex-wrap justify-center gap-2 sm:gap-3 w-full sm:w-auto">
-            {categories.map((category) => (
+            {filterCategories.map((category) => (
               <motion.button
                 key={category}
                 onClick={() => setFilter(category)}
@@ -186,31 +92,42 @@ export default function Projects() {
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
-                  <div className="absolute top-4 right-4 flex flex-col gap-2 z-10">
-                    {project.featured && (
-                      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">
-                        Featured
-                      </div>
-                    )}
+                  <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
                     {project.achievement && (
                       <div className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-medium">
                         {project.achievement}
                       </div>
                     )}
+                    {project.highlight && (
+                      <div className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-medium">
+                        {project.highlight}
+                      </div>
+                    )}
                   </div>
-                  
+                  <div className="absolute top-4 right-4 z-10">
+                    <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${
+                      project.type === 'Client' ? 'bg-green-500 text-white'
+                        : project.type === 'Company' ? 'bg-orange-500 text-white'
+                        : 'bg-blue-500 text-white'
+                    }`}>
+                      {project.type === 'Client' ? 'Freelance' : project.type === 'Company' ? 'Company' : 'Personal'}
+                    </span>
+                  </div>
+
                   {/* Overlay with Links */}
                   <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-10">
-                    <motion.a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="p-3 bg-white rounded-full text-gray-800 hover:bg-gray-100 transition-colors"
-                    >
-                      <FaGithub size={20} />
-                    </motion.a>
+                    {project.github !== '#' && (
+                      <motion.a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="p-3 bg-white rounded-full text-gray-800 hover:bg-gray-100 transition-colors"
+                      >
+                        <FaGithub size={20} />
+                      </motion.a>
+                    )}
                     <motion.a
                       href={project.live}
                       target="_blank"
@@ -231,7 +148,7 @@ export default function Projects() {
                       {project.title}
                     </h3>
                     <span className="text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-full whitespace-nowrap ml-2">
-                      {project.category}
+                      {project.categories[0]}
                     </span>
                   </div>
 
@@ -241,7 +158,7 @@ export default function Projects() {
 
                   {/* Technologies */}
                   <div className="flex flex-wrap gap-1 mb-3">
-                    {project.technologies.slice(0, 4).map((tech) => (
+                    {(expandedTech === project.id ? project.technologies : project.technologies.slice(0, 4)).map((tech) => (
                       <span
                         key={tech}
                         className="text-xs font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-600 px-2 py-1 rounded-full"
@@ -249,26 +166,39 @@ export default function Projects() {
                         {tech}
                       </span>
                     ))}
-                    {project.technologies.length > 4 && (
-                      <span className="text-xs font-medium text-gray-500 dark:text-gray-400 px-2 py-1">
-                        +{project.technologies.length - 4}
-                      </span>
+                    {project.technologies.length > 4 && expandedTech !== project.id && (
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setExpandedTech(project.id); }}
+                        className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 px-2 py-1 cursor-pointer transition-colors"
+                      >
+                        +{project.technologies.length - 4} more
+                      </button>
+                    )}
+                    {expandedTech === project.id && project.technologies.length > 4 && (
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setExpandedTech(null); }}
+                        className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 px-2 py-1 cursor-pointer transition-colors"
+                      >
+                        show less
+                      </button>
                     )}
                   </div>
 
                   {/* Action Buttons */}
                   <div className="flex gap-2 mt-auto">
-                    <motion.a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="flex-1 flex items-center justify-center gap-2 py-2 px-3 border border-gray-300 dark:border-gray-500 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors text-sm"
-                    >
-                      <FaGithub size={14} />
-                      Code
-                    </motion.a>
+                    {project.github !== '#' && (
+                      <motion.a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="flex-1 flex items-center justify-center gap-2 py-2 px-3 border border-gray-300 dark:border-gray-500 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors text-sm"
+                      >
+                        <FaGithub size={14} />
+                        Code
+                      </motion.a>
+                    )}
                     <motion.a
                       href={project.live}
                       target="_blank"
@@ -296,11 +226,11 @@ export default function Projects() {
           className="text-center mt-16"
         >
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            Want to see more projects?
+            Want to see all {allProjects.length}+ projects?
           </h3>
           <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
-            I&apos;ve built many more exciting projects! Check out my complete portfolio 
-            to see all the applications and websites I&apos;ve developed.
+            This is just a preview. Check out the full collection including personal projects,
+            client work, and hackathon builds.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <motion.a

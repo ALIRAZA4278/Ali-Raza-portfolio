@@ -15,14 +15,19 @@ import MobileLayoutStabilizer from '../components/MobileLayoutStabilizer';
 export default function Home() {
   return (
     <MobileLayoutStabilizer>
-      <div className="min-h-screen bg-white dark:bg-gray-900 transition-all duration-500 ease-in-out">
+      <a href="#main-content" className="skip-to-content">
+        Skip to main content
+      </a>
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
         <Navbar />
-        <Hero />
-        <About />
-        <Experience />
-        <Skills />
-        <Projects />
-        <Contact />
+        <main id="main-content">
+          <Hero />
+          <About />
+          <Experience />
+          <Skills />
+          <Projects />
+          <Contact />
+        </main>
         <Footer />
         <FloatingElements />
         <ThemeChangeNotification />

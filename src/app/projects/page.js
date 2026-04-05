@@ -5,113 +5,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt, FaFilter, FaArrowLeft, FaStar, FaCode, FaEye } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
+import { personalProjects, clientProjects, allProjects, filterCategories } from '../../data/projects';
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState('All');
+  const [expandedTech, setExpandedTech] = useState(null);
 
-  // Your real completed projects
-  const allProjects = [
-    // Featured Projects
-    {
-      id: 1,
-      title: 'Furniture E-commerce Website',
-      description: 'A modern furniture e-commerce platform with product catalog, shopping cart, responsive design, and seamless furniture shopping experience with modern UI/UX.',
-      image: '/Images/Ecommerce.png',
-  technologies: ['Next.js', 'Sanity', 'TypeScript', 'Tailwind CSS', 'JavaScript'],
-  category: 'E-commerce',
-      github: 'https://github.com/ALIRAZA4278/Milestone3-basic-e-commerce',
-      live: 'https://furniture-ecommerce3.vercel.app/',
-      featured: true,
-      status: 'Completed',
-      year: '2024'
-    },
-    {
-      id: 2,
-      title: 'Resume Builder',
-      description: 'An interactive resume builder application that allows users to create professional resumes with multiple templates, real-time preview, and PDF export functionality.',
-      image: '/Images/resume-builder.png',
-  technologies: ['HTML', 'CSS', 'TypeScript'],
-      category: 'Web App',
-      github: 'https://github.com/ALIRAZA4278/Resume_builder',
-      live: 'https://resume-builder--inky.vercel.app/',
-      featured: true,
-      status: 'Completed',
-      year: '2024'
-    },
-    {
-      id: 3,
-      title: 'Blog Application',
-      description: 'A full-featured blog platform with article publishing, commenting system, user management, content creation tools, and SEO optimization for content creators.',
-      image: '/Images/BLOGAPP.png',
-  technologies: ['Next.js', 'Sanity', 'TypeScript', 'Tailwind CSS'],
-      category: 'Full-Stack',
-      github: 'https://github.com/ALIRAZA4278/Milestone-3-blog-app',
-      live: 'https://milestone-3-blog-app.vercel.app/',
-      featured: true,
-      status: 'Completed',
-      year: '2024'
-    },
-    {
-      id: 4,
-      title: 'Pizza Ordering Chatbot',
-      description: 'An AI-powered pizza ordering chatbot built using Dialogflow for intent handling and a React frontend for the interactive ordering experience.',
-      image: '/Images/pizza chatbot.jpg',
-      technologies: ['Dialogflow', 'JavaScript', 'React', 'Framer Motion'],
-      category: 'Chatbot',
-      github: 'https://github.com/ALIRAZA4278/PIZZA_CHATBOT',
-      live: 'https://pizza-chatbot.vercel.app/',
-      featured: true,
-      status: 'Completed',
-      year: '2024'
-    },
-    {
-      id: 5,
-      title: 'Vote Hub',
-      description: 'A lightweight voting platform built with plain HTML, CSS, and JavaScript for fast, accessible polling and vote tracking.',
-      image: '/Images/votehub.png',
-      technologies: ['HTML', 'CSS', 'JavaScript'],
-      category: 'Web App',
-      github: 'https://github.com/ALIRAZA4278/Vote_Hub',
-      live: 'https://vote-hub-6iqt.vercel.app/',
-      featured: true,
-      status: 'Completed',
-      year: '2024'
-    },
-    {
-      id: 6,
-      title: 'News Application',
-      description: 'A news application that integrates external news APIs; implemented with plain HTML, CSS and JavaScript for a lightweight, static-feel frontend.',
-      image: '/Images/news-app.png',
-      technologies: ['HTML', 'CSS', 'JavaScript', 'API Integration'],
-      category: 'Web App',
-      github: 'https://github.com/ALIRAZA4278/News-App',
-      live: 'https://news-app-flame-eta.vercel.app/',
-      featured: true,
-      status: 'Completed',
-      year: '2024'
-    },
-    {
-      id: 7,
-      title: 'Work Oura - Job Portal',
-      description: 'A comprehensive job portal platform connecting job seekers with employers, featuring job posting, application tracking, and career matching with modern authentication.',
-      image: '/Images/job-app.png',
-      technologies: ['Next.js', 'MongoDB', 'Clerk', 'Framer Motion', 'API Integration'],
-      category: 'Full-Stack',
-      github: 'https://github.com/ALIRAZA4278/work-oura',
-      live: 'https://work-oura.vercel.app/',
-      featured: true,
-      status: 'Completed',
-      year: '2024'
-    }
-  ];
+  const filteredProjects = filter === 'All'
+    ? allProjects
+    : allProjects.filter(project => project.categories.includes(filter));
 
-  const categories = ['All', 'E-commerce', 'Full-Stack', 'Web App', 'Chatbot'];
-
-  const filteredProjects = filter === 'All' 
-    ? allProjects 
-    : allProjects.filter(project => project.category === filter);
-
-  const featuredCount = allProjects.filter(p => p.featured).length;
   const totalProjects = allProjects.length;
 
   return (
@@ -125,7 +28,6 @@ export default function ProjectsPage() {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            {/* Back Button */}
             <Link href="/" className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mb-6 transition-colors">
               <FaArrowLeft />
               <span>Back to Home</span>
@@ -134,25 +36,25 @@ export default function ProjectsPage() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
               All <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Projects</span>
             </h1>
-            
+
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
-              Here&apos;s a comprehensive collection of all the projects I&apos;ve built, showcasing my journey
-              in web development and the diverse range of technologies I work with.
+              From AI-powered platforms to full-stack apps &mdash; here&apos;s everything I&apos;ve built
+              across personal projects, client work, and hackathons.
             </p>
 
             {/* Stats */}
             <div className="flex flex-wrap justify-center gap-6 mb-8">
               <div className="bg-white dark:bg-gray-800 px-6 py-3 rounded-full shadow-lg">
-                <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">{totalProjects}</span>
-                <span className="text-gray-600 dark:text-gray-300 ml-2">Total Projects</span>
+                <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">{personalProjects.length}</span>
+                <span className="text-gray-600 dark:text-gray-300 ml-2">Personal Projects</span>
               </div>
               <div className="bg-white dark:bg-gray-800 px-6 py-3 rounded-full shadow-lg">
-                <span className="text-2xl font-bold text-purple-600 dark:text-purple-400">{featuredCount}</span>
-                <span className="text-gray-600 dark:text-gray-300 ml-2">Featured</span>
+                <span className="text-2xl font-bold text-green-600 dark:text-green-400">{clientProjects.length}</span>
+                <span className="text-gray-600 dark:text-gray-300 ml-2">Client Projects</span>
               </div>
               <div className="bg-white dark:bg-gray-800 px-6 py-3 rounded-full shadow-lg">
-                <span className="text-2xl font-bold text-green-600 dark:text-green-400">2024</span>
-                <span className="text-gray-600 dark:text-gray-300 ml-2">Latest Year</span>
+                <span className="text-2xl font-bold text-purple-600 dark:text-purple-400">4+</span>
+                <span className="text-gray-600 dark:text-gray-300 ml-2">Years Experience</span>
               </div>
             </div>
 
@@ -172,7 +74,7 @@ export default function ProjectsPage() {
             className="flex flex-wrap justify-center gap-4 mb-12"
           >
             <FaFilter className="text-gray-500 dark:text-gray-400 mt-2 mr-2" />
-            {categories.map((category) => (
+            {filterCategories.map((category) => (
               <motion.button
                 key={category}
                 onClick={() => setFilter(category)}
@@ -186,7 +88,7 @@ export default function ProjectsPage() {
               >
                 {category}
                 <span className="ml-2 text-sm">
-                  ({category === 'All' ? totalProjects : allProjects.filter(p => p.category === category).length})
+                  ({category === 'All' ? totalProjects : allProjects.filter(p => p.categories.includes(category)).length})
                 </span>
               </motion.button>
             ))}
@@ -207,7 +109,7 @@ export default function ProjectsPage() {
                   key={project.id}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  transition={{ duration: 0.6, delay: index * 0.08 }}
                   whileHover={{ y: -10 }}
                   className={`bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col h-full ${
                     project.featured ? 'ring-2 ring-blue-500 ring-opacity-20' : ''
@@ -222,36 +124,46 @@ export default function ProjectsPage() {
                       className="object-cover group-hover:scale-110 transition-transform duration-500"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
-                    
+
                     {/* Badges */}
-                    <div className="absolute top-4 left-4 flex gap-2 z-10">
-                      {project.featured && (
+                    <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
+                      {project.achievement && (
                         <div className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1">
                           <FaStar size={10} />
-                          Featured
+                          {project.achievement}
                         </div>
                       )}
-                      <div className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-medium">
-                        {project.status}
-                      </div>
+                      {project.highlight && (
+                        <div className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+                          {project.highlight}
+                        </div>
+                      )}
                     </div>
 
-                    <div className="absolute top-4 right-4 text-white text-sm z-10 bg-black bg-opacity-50 px-2 py-1 rounded">
-                      {project.year}
+                    <div className="absolute top-4 right-4 z-10">
+                      <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${
+                        project.type === 'Client' ? 'bg-green-500 text-white'
+                          : project.type === 'Company' ? 'bg-orange-500 text-white'
+                          : 'bg-blue-500 text-white'
+                      }`}>
+                        {project.type === 'Client' ? 'Freelance' : project.type === 'Company' ? 'Company' : 'Personal'}
+                      </span>
                     </div>
-                    
+
                     {/* Overlay with Links */}
                     <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-10">
-                      <motion.a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="p-3 bg-white rounded-full text-gray-800 hover:bg-gray-100 transition-colors"
-                      >
-                        <FaGithub size={18} />
-                      </motion.a>
+                      {project.github !== '#' && (
+                        <motion.a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="p-3 bg-white rounded-full text-gray-800 hover:bg-gray-100 transition-colors"
+                        >
+                          <FaGithub size={18} />
+                        </motion.a>
+                      )}
                       <motion.a
                         href={project.live}
                         target="_blank"
@@ -272,7 +184,7 @@ export default function ProjectsPage() {
                         {project.title}
                       </h3>
                       <span className="text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-full whitespace-nowrap ml-2">
-                        {project.category}
+                        {project.categories[0]}
                       </span>
                     </div>
 
@@ -282,7 +194,7 @@ export default function ProjectsPage() {
 
                     {/* Technologies */}
                     <div className="flex flex-wrap gap-1 mb-4">
-                      {project.technologies.slice(0, 4).map((tech) => (
+                      {(expandedTech === project.id ? project.technologies : project.technologies.slice(0, 4)).map((tech) => (
                         <span
                           key={tech}
                           className="text-xs font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full"
@@ -290,26 +202,39 @@ export default function ProjectsPage() {
                           {tech}
                         </span>
                       ))}
-                      {project.technologies.length > 4 && (
-                        <span className="text-xs font-medium text-gray-500 dark:text-gray-400 px-2 py-1">
+                      {project.technologies.length > 4 && expandedTech !== project.id && (
+                        <button
+                          onClick={(e) => { e.stopPropagation(); setExpandedTech(project.id); }}
+                          className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 px-2 py-1 cursor-pointer transition-colors"
+                        >
                           +{project.technologies.length - 4} more
-                        </span>
+                        </button>
+                      )}
+                      {expandedTech === project.id && project.technologies.length > 4 && (
+                        <button
+                          onClick={(e) => { e.stopPropagation(); setExpandedTech(null); }}
+                          className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 px-2 py-1 cursor-pointer transition-colors"
+                        >
+                          show less
+                        </button>
                       )}
                     </div>
 
                     {/* Action Buttons */}
                     <div className="flex gap-2 mt-auto">
-                      <motion.a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="flex-1 flex items-center justify-center gap-2 py-2 px-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-sm"
-                      >
-                        <FaCode size={12} />
-                        Code
-                      </motion.a>
+                      {project.github !== '#' && (
+                        <motion.a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="flex-1 flex items-center justify-center gap-2 py-2 px-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-sm"
+                        >
+                          <FaCode size={12} />
+                          Code
+                        </motion.a>
+                      )}
                       <motion.a
                         href={project.live}
                         target="_blank"
@@ -335,7 +260,6 @@ export default function ProjectsPage() {
               animate={{ opacity: 1 }}
               className="text-center py-16"
             >
-              <div className="text-6xl text-gray-300 dark:text-gray-600 mb-4">📂</div>
               <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2">
                 No projects found
               </h3>
