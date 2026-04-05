@@ -68,13 +68,8 @@ html {
 
 /* Text selection */
 ::selection {
-  background-color: rgba(59, 130, 246, 0.2);
-  color: rgb(30, 64, 175);
-}
-
-.dark ::selection {
   background-color: rgba(59, 130, 246, 0.3);
-  color: rgb(147, 197, 253);
+  color: white;
 }
 
 /* Line clamp utilities */

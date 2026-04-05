@@ -8,7 +8,7 @@ import Image from 'next/image';
 
 export default function Hero() {
   const [typewriterText, setTypewriterText] = useState('');
-  const roles = useMemo(() => ['Full-Stack Developer', 'AI Integration Specialist', 'MERN Stack Developer', 'Chatbot Developer', 'Frontend Engineer'], []);
+  const roles = useMemo(() => ['Full-Stack Developer', 'AI Integration Specialist', 'MERN Stack Developer',  'Frontend Engineer'], []);
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isClient, setIsClient] = useState(false);

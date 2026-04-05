@@ -2,8 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { FaBars, FaTimes, FaSun, FaMoon } from 'react-icons/fa';
-import { useTheme } from './ThemeProvider';
+import { FaBars, FaTimes } from 'react-icons/fa';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -11,7 +10,6 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
 
   const navLinks = useMemo(() => [
@@ -120,32 +118,9 @@ export default function Navbar() {
               )
             ))}
 
-            {/* Theme Toggle Button */}
-            <motion.button
-              onClick={toggleTheme}
-              whileHover={{ scale: 1.1, rotate: 15 }}
-              whileTap={{ scale: 0.9 }}
-              className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-            >
-              {theme === 'dark' ? <FaSun size={18} /> : <FaMoon size={18} />}
-            </motion.button>
           </div>
 
-          {/* Mobile: Theme Toggle + Menu Button */}
           <div className="flex items-center gap-2">
-            {/* Mobile Theme Toggle */}
-            <motion.button
-              onClick={toggleTheme}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="lg:hidden p-3 rounded-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg shadow-md border border-gray-200/20 dark:border-gray-700/30 text-gray-700 dark:text-gray-300"
-              style={{ width: '48px', height: '48px', minWidth: '48px', minHeight: '48px' }}
-              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-            >
-              {theme === 'dark' ? <FaSun size={20} /> : <FaMoon size={20} />}
-            </motion.button>
-
             <motion.button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className={`lg:hidden p-3 rounded-lg transition-all duration-300 ${

@@ -32,11 +32,11 @@ export default function Experience() {
       ]
     },
     {
-      title: 'Web Developer',
+      title: 'Full Stack Developer',
       company: 'The Social Hawks',
       period: 'Current',
       location: 'Karachi, Pakistan',
-      description: 'Working as a Web Developer at a digital marketing agency, building websites for the company and its clients. Handling frontend development, Figma to code conversion, performance optimization, and responsive design.',
+      description: 'Working as a Full Stack Developer at a digital marketing agency, handling both frontend and backend development for the company and its clients. Responsible for Figma to code conversion, backend APIs, database management, performance optimization, and full project delivery.',
       type: 'Full-time',
       isCurrent: true,
       projects: [
@@ -46,9 +46,24 @@ export default function Experience() {
           role: 'Built and maintained the agency\'s own website from scratch'
         },
         {
+          name: 'Connectiva',
+          website: 'http://www.connectiva.ch/en',
+          role: 'Full-stack marketplace platform for Rhine Valley, Switzerland with PostgreSQL backend'
+        },
+        {
           name: 'Mohit Computers',
           website: 'https://mohitcomputers.pk/',
-          role: 'Developed full-stack e-commerce platform for client with Supabase & PostgreSQL'
+          role: 'Full-stack e-commerce platform with Supabase, PostgreSQL & admin dashboard'
+        },
+        {
+          name: 'Halwaiii',
+          website: 'https://halwai.vercel.app/',
+          role: 'E-commerce platform for premium sweets business with PostgreSQL backend'
+        },
+        {
+          name: 'BlendWise Solutions',
+          website: 'https://blendwise.vercel.app/',
+          role: 'Agency website with pricing packages and service showcase'
         }
       ]
     }
@@ -144,7 +159,7 @@ export default function Experience() {
               {/* Projects List */}
               <div className="space-y-3">
                 <h5 className="text-sm font-semibold text-gray-700 dark:text-gray-400 uppercase tracking-wider">
-                  {work.isCurrent ? 'Company Products:' : 'Key Projects:'}
+                  {work.company === 'MS Capital Soft' ? 'Company Products:' : 'Client Projects:'}
                 </h5>
                 {work.projects.map((project, idx) => (
                   <motion.div

@@ -84,7 +84,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>
       <head>
-        <link rel="icon" type="image/svg+xml" href="/icon.svg" />
         <link rel="manifest" href="/site.webmanifest" />
         <script
           type="application/ld+json"

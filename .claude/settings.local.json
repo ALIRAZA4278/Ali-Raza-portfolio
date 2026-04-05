@@ -19,7 +19,8 @@
       "WebFetch(domain:www.connectiva.ch)",
       "WebFetch(domain:halwai.vercel.app)",
       "WebFetch(domain:blendwise.vercel.app)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(npm install:*)"
     ]
   }
 }

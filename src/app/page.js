@@ -9,7 +9,6 @@ import Projects from '../components/Projects';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import FloatingElements from '../components/FloatingElements';
-import ThemeChangeNotification from '../components/ThemeChangeNotification';
 import MobileLayoutStabilizer from '../components/MobileLayoutStabilizer';
 
 export default function Home() {
@@ -30,7 +29,6 @@ export default function Home() {
         </main>
         <Footer />
         <FloatingElements />
-        <ThemeChangeNotification />
       </div>
     </MobileLayoutStabilizer>
   );
