@@ -62,10 +62,10 @@ export default function About() {
               <div className="relative w-full h-full bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl p-1 shadow-2xl">
                 <div className="w-full h-full bg-gray-200 dark:bg-gray-700 rounded-2xl overflow-hidden">
                   <Image
-                    src="/Images/ali final 2.png"
-                    alt="Ali Raza - About Me"
+                    src="/Images/ali-raza-fullbody.png"
+                    alt="Ali Raza - Full Stack Developer"
                     fill
-                    className="object-cover rounded-2xl"
+                    className="object-cover object-top rounded-2xl"
                     sizes="(max-width: 1024px) 320px, 384px"
                   />
                 </div>
