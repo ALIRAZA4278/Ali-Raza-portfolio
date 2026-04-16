@@ -164,16 +164,18 @@ export default function ProjectsPage() {
                           <FaGithub size={18} />
                         </motion.a>
                       )}
-                      <motion.a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="p-3 bg-blue-600 rounded-full text-white hover:bg-blue-700 transition-colors"
-                      >
-                        <FaExternalLinkAlt size={18} />
-                      </motion.a>
+                      {project.live !== '#' && (
+                        <motion.a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="p-3 bg-blue-600 rounded-full text-white hover:bg-blue-700 transition-colors"
+                        >
+                          <FaExternalLinkAlt size={18} />
+                        </motion.a>
+                      )}
                     </div>
                   </div>
 
@@ -235,17 +237,19 @@ export default function ProjectsPage() {
                           Code
                         </motion.a>
                       )}
-                      <motion.a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="flex-1 flex items-center justify-center gap-2 py-2 px-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all text-sm"
-                      >
-                        <FaEye size={12} />
-                        Demo
-                      </motion.a>
+                      {project.live !== '#' && (
+                        <motion.a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="flex-1 flex items-center justify-center gap-2 py-2 px-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all text-sm"
+                        >
+                          <FaEye size={12} />
+                          Demo
+                        </motion.a>
+                      )}
                     </div>
                   </div>
                 </motion.div>

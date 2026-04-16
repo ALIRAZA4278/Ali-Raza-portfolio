@@ -128,16 +128,18 @@ export default function Projects() {
                         <FaGithub size={20} />
                       </motion.a>
                     )}
-                    <motion.a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="p-3 bg-blue-600 rounded-full text-white hover:bg-blue-700 transition-colors"
-                    >
-                      <FaExternalLinkAlt size={20} />
-                    </motion.a>
+                    {project.live !== '#' && (
+                      <motion.a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="p-3 bg-blue-600 rounded-full text-white hover:bg-blue-700 transition-colors"
+                      >
+                        <FaExternalLinkAlt size={20} />
+                      </motion.a>
+                    )}
                   </div>
                 </div>
 
@@ -199,6 +201,7 @@ export default function Projects() {
                         Code
                       </motion.a>
                     )}
+                    {project.live !== '#' && (
                     <motion.a
                       href={project.live}
                       target="_blank"
@@ -210,6 +213,7 @@ export default function Projects() {
                       <FaExternalLinkAlt size={14} />
                       Live Demo
                     </motion.a>
+                    )}
                   </div>
                 </div>
               </motion.div>

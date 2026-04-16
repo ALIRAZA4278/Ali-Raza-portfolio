@@ -9,7 +9,7 @@ export const allProjects = [
     technologies: ['Next.js', 'FastAPI', 'OpenAI SDK', 'Kafka', 'PostgreSQL', 'Kubernetes', 'Dapr', 'Redis', 'Helm', 'GitHub Actions'],
     categories: ['AI / Chatbot', 'Full-Stack'],
     github: 'https://github.com/ALIRAZA4278/hackathon-2-phase-5',
-    live: 'http://152.69.221.177:3000/',
+    live: '#',
     featured: true,
     type: 'Personal',
     highlight: 'Cloud-Native AI Platform'
