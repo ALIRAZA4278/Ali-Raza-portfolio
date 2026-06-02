@@ -31,42 +31,6 @@ export default function Experience() {
         }
       ]
     },
-    {
-      title: 'Full Stack Developer',
-      company: 'The Social Hawks',
-      period: 'Current',
-      location: 'Karachi, Pakistan',
-      description: 'Working as a Full Stack Developer at a digital marketing agency, handling both frontend and backend development for the company and its clients. Responsible for Figma to code conversion, backend APIs, database management, performance optimization, and full project delivery.',
-      type: 'Full-time',
-      isCurrent: true,
-      projects: [
-        {
-          name: 'The Social Hawks',
-          website: 'https://thesocialhawks-kep1.vercel.app/',
-          role: 'Built and maintained the agency\'s own website from scratch'
-        },
-        {
-          name: 'Connectiva',
-          website: 'http://www.connectiva.ch/en',
-          role: 'Full-stack marketplace platform for Rhine Valley, Switzerland with PostgreSQL backend'
-        },
-        {
-          name: 'Mohit Computers',
-          website: 'https://mohitcomputers.pk/',
-          role: 'Full-stack e-commerce platform with Supabase, PostgreSQL & admin dashboard'
-        },
-        {
-          name: 'Halwaiii',
-          website: 'https://halwai.vercel.app/',
-          role: 'E-commerce platform for premium sweets business with PostgreSQL backend'
-        },
-        {
-          name: 'BlendWise Solutions',
-          website: 'https://blendwise.vercel.app/',
-          role: 'Agency website with pricing packages and service showcase'
-        }
-      ]
-    }
   ];
 
   const freelanceHighlights = [
