@@ -221,6 +221,30 @@ export const allProjects = [
     featured: true,
     type: 'Personal'
   },
+  {
+    id: 19,
+    title: 'Secret Hour - Couples Gift E-commerce',
+    description: 'Discreet, premium e-commerce platform for curated couple\'s gift boxes. Features a quiz-based recommendation flow, abandoned-cart tracking, referral program, and dual payment options (bank transfer discount + COD) with nationwide delivery across Pakistan.',
+    image: '/Images/PROJECTS/secrethour.png',
+    technologies: ['Next.js', 'Supabase', 'PostgreSQL', 'React', 'Tailwind CSS'],
+    categories: ['E-commerce', 'Full-Stack'],
+    github: 'https://github.com/ALIRAZA4278/secrethour',
+    live: 'http://secrethour.pk/',
+    featured: true,
+    type: 'Personal'
+  },
+  {
+    id: 20,
+    title: 'Cray Stuff - Vintage & Streetwear Marketplace',
+    description: 'E-commerce marketplace for curated one-of-one vintage and streetwear clothing. Features a make-an-offer system on every listing, multi-currency support (PLN/USD/EUR), Cloudinary-powered image delivery, and integrations with Vinted, Instagram, and TikTok.',
+    image: '/Images/PROJECTS/craystuff.png',
+    technologies: ['Next.js', 'Cloudinary', 'React', 'Tailwind CSS'],
+    categories: ['E-commerce', 'Full-Stack'],
+    github: 'https://github.com/ALIRAZA4278/Cray-stuff',
+    live: 'https://cray-stuff.vercel.app/',
+    featured: true,
+    type: 'Personal'
+  },
 ];
 
 // Helper exports
