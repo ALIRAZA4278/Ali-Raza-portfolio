@@ -200,7 +200,7 @@ export const allProjects = [
   {
     id: 17,
     title: 'Apex Technify - Digital Agency',
-    description: 'A professional digital agency website showcasing web development, design, SEO, and marketing services. Features pricing packages, portfolio section, process overview, and modern animations.',
+    description: 'Live business website for Apex Technify, a digital agency offering web development, logo & graphics design, video editing, digital marketing, SEO, and e-commerce solutions to real clients. Built and maintained by me, featuring pricing packages, portfolio section, and a full booking/contact flow.',
     image: '/Images/PROJECTS/apextechnify.png',
     technologies: ['Next.js', 'JavaScript', 'CSS', 'Framer Motion'],
     categories: ['Web App'],
