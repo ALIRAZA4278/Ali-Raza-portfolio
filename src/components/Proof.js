@@ -13,11 +13,11 @@ export default function Proof() {
             Saylani <span className="accent">hackathon</span>
           </h2>
           <p className="proof__num display" data-figure-num>
-            2nd<span className="sr-only"> position</span>
+            12h<span className="sr-only"> hours</span>
           </p>
           <p className="lead" data-reveal>
-            HealthMate took second position. Gemini AI reads medical reports and explains them in
-            English and Roman Urdu.
+            I built HealthMate in the 12-hour Coding Night 2025 hackathon. Gemini AI reads medical
+            reports and explains them in English and Roman Urdu.
           </p>
           <ul className="proof__tech" aria-label="Built with" data-reveal>
             {healthMate.technologies.map((tech) => <li key={tech}>{tech}</li>)}
