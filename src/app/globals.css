@@ -429,6 +429,8 @@ body::after {
 
   .is-live .showcase__slides {
     grid-column: 5 / span 8; position: relative; align-self: center; height: min(80svh, 48vw);
+    /* keeps 90px free above the frame for the 01 / 06 counter on short screens */
+    max-height: calc(100svh - var(--nav-h) - 180px);
     background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--radius) + 8px);
     box-shadow: 0 50px 100px -50px rgba(198, 244, 50, 0.18);
   }
@@ -473,7 +475,7 @@ body::after {
   .is-scrubbed .slide.is-active .slide__body { opacity: 1; }
 
   .showcase__count {
-    position: absolute; z-index: 30; top: -0.62em; right: 24px; margin: 0;
+    position: absolute; z-index: 30; top: calc(-0.62em - 20px); right: 24px; margin: 0;
     font-family: var(--font-d); font-size: clamp(3rem, 1.6rem + 2.6vw, 5rem); line-height: 1;
     color: var(--muted); letter-spacing: 0.02em; pointer-events: none;
   }
@@ -485,6 +487,16 @@ body::after {
 }
 @media (min-width: 1000px) and (prefers-reduced-motion: reduce) {
   .showcase__count span { animation: none; }
+}
+/* Short laptop screens: a shorter screenshot and a three-line description keep the text inside the frame */
+@media (min-width: 1000px) and (max-height: 860px) {
+  .is-live .slide__shot { height: 46%; }
+  .is-live .slide__body { padding-top: 14px; }
+  .is-live .slide__meta { margin-bottom: 8px; }
+  .is-live .slide__desc {
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden;
+    font-size: 0.9375rem;
+  }
 }
 
 @media (max-width: 860px) {
