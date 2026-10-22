@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { scrollToY } from '../lib/scroll';
 
 // When the home page opens on a link like /#about (from /projects, or a shared
 // link), the browser jumps to the section before the page has finished laying
@@ -23,7 +24,7 @@ export default function HashScroll() {
       if (!el) return;
       const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 64;
       const top = el.getBoundingClientRect().top + window.scrollY - navH;
-      window.scrollTo({ top, behavior: 'instant' });
+      scrollToY(top, { immediate: true });
     };
 
     const frame = requestAnimationFrame(align);

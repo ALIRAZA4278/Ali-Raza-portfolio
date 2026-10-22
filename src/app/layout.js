@@ -2,6 +2,7 @@ import "./globals.css";
 import { Bebas_Neue, Geist } from 'next/font/google';
 import WhatsAppButton from '../components/WhatsAppButton';
 import Spotlight from '../components/Spotlight';
+import SmoothScroll from '../components/SmoothScroll';
 
 const bebas = Bebas_Neue({
   subsets: ['latin'],
@@ -103,6 +104,7 @@ export default function RootLayout({ children }) {
         {children}
         <WhatsAppButton />
         <Spotlight />
+        <SmoothScroll />
       </body>
     </html>
   );

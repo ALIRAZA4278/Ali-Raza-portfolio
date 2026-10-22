@@ -16,6 +16,7 @@ import {
   metaLine
 } from '../../data/projects';
 import { gsap, SplitText, useGSAP, MOTION_OK } from '../../lib/gsap';
+import { scrollToY } from '../../lib/scroll';
 
 const countFor = (category) =>
   category === 'All' ? allProjects.length : allProjects.filter((p) => p.categories.includes(category)).length;
@@ -31,12 +32,12 @@ export default function ProjectsPage() {
     const top = list.current?.getBoundingClientRect().top ?? 0;
     const bar = document.querySelector('.filterbar')?.offsetHeight ?? 0;
     const nav = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 64;
-    if (top < nav + bar) window.scrollBy({ top: top - nav - bar - 8, behavior: 'smooth' });
+    if (top < nav + bar) scrollToY(window.scrollY + top - nav - bar - 8);
   };
 
   // Arriving from a button lower down the home page: start at the top
   useEffect(() => {
-    if (!window.location.hash) window.scrollTo({ top: 0, behavior: 'instant' });
+    if (!window.location.hash) scrollToY(0, { immediate: true });
   }, []);
 
   const filteredProjects = filter === 'All'

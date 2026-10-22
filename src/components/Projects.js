@@ -5,6 +5,7 @@ import Image from 'next/image';
 import BrowserFrame from './BrowserFrame';
 import { allProjects, splitTitle, hasLink, metaLine } from '../data/projects';
 import { ScrollTrigger, useGSAP } from '../lib/gsap';
+import { scrollToY } from '../lib/scroll';
 
 const featured = allProjects.slice(0, 6);
 
@@ -48,7 +49,7 @@ export default function Projects() {
     const st = triggerRef.current;
     if (!st) return;
     const top = st.start + ((index + 0.5) / featured.length) * (st.end - st.start);
-    window.scrollTo({ top });
+    scrollToY(top);
   };
 
   return (
