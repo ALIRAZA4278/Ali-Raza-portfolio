@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 // Places where sites I built are live. `projects` are the names shown in the list.
 const places = [
-  { id: 'karachi', name: 'Karachi, Pakistan', note: 'Home base', projects: 'MS Capital Soft, The Social Hawks, Secret Hour, Mohit Computers', location: [24.86, 67.01], home: true },
+  { id: 'karachi', name: 'Karachi, Pakistan', note: 'Home base', projects: 'MS Capital Soft, Secret Hour, Mohit Computers', location: [24.86, 67.01], home: true },
   { id: 'swiss', name: 'Rhine Valley, Switzerland', projects: 'Connectiva', location: [47.43, 9.64] },
   { id: 'atlanta', name: 'Atlanta, USA', projects: 'GracePoint Medical Staffing, Quality Care Senior Living', location: [33.75, -84.39] },
   { id: 'melbourne', name: 'Melbourne, Australia', projects: 'NDIS Beauty Collective', location: [-37.81, 144.96] },

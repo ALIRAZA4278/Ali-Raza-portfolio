@@ -1,4 +1,4 @@
-import { currentRole, agencyRole, freelanceHighlights, freelanceSince } from '../data/site';
+import { currentRole, freelanceHighlights, freelanceSince } from '../data/site';
 import { domainOf } from '../data/projects';
 
 // One current job, shown as a feature card with its products or projects linked
@@ -47,14 +47,13 @@ export default function Experience() {
           Work <span className="accent">experience</span>
         </h2>
         <p className="lead" data-reveal>
-          Two current roles, SaaS products and agency client work, plus freelance projects for
-          clients in the USA and Australia since {freelanceSince}.
+          Building SaaS products at {currentRole.company}, plus freelance projects for clients in
+          the USA and Australia since {freelanceSince}.
         </p>
       </div>
 
       <div className="xp-roles">
         <RoleCard mark="MS" role={currentRole} items={currentRole.products} itemsLabel="Products" />
-        <RoleCard mark="SH" role={agencyRole} items={agencyRole.projects} itemsLabel="Client projects" />
       </div>
 
       <div className="xp-free" data-reveal-group>

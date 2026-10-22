@@ -79,7 +79,6 @@ export default function RootLayout({ children }) {
     jobTitle: 'Software Engineer',
     worksFor: [
       { '@type': 'Organization', name: 'MS Capital Soft' },
-      { '@type': 'Organization', name: 'The Social Hawks' },
     ],
     alumniOf: { '@type': 'CollegeOrUniversity', name: 'Ziauddin University' },
     sameAs: [
