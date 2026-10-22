@@ -53,7 +53,7 @@ const projectList = [
   {
     id: 16,
     title: 'The Social Hawks',
-    description: 'Website for The Social Hawks, a digital marketing agency in Karachi where I work. Services, case studies with their own pages, blog, careers, testimonials, and a free social media review form to bring in leads.',
+    description: 'Website for The Social Hawks, a digital marketing agency in Karachi. Services, case studies with their own pages, blog, careers, testimonials, and a free social media review form to bring in leads.',
     image: '/Images/PROJECTS/thesocialhawks.webp',
     technologies: ['Next.js', 'Tailwind CSS', 'JavaScript', 'Framer Motion'],
     categories: ['Company Work', 'Web App'],
@@ -142,7 +142,7 @@ const projectList = [
   {
     id: 7,
     title: 'Mohit Computers',
-    description: 'Online store for used laptops and accessories from a shop in Saddar, Karachi. Categories for laptops, Chromebooks, RAM, SSDs and workstations, wishlist and compare, customer accounts, a corporate page and blog, all managed from a Supabase admin dashboard. Built at The Social Hawks.',
+    description: 'Online store for used laptops and accessories from a shop in Saddar, Karachi. Categories for laptops, Chromebooks, RAM, SSDs and workstations, wishlist and compare, customer accounts, a corporate page and blog, all managed from a Supabase admin dashboard.',
     image: '/Images/PROJECTS/mohitcomputers.webp',
     technologies: ['Next.js', 'Supabase', 'PostgreSQL', 'Tailwind CSS', 'Supabase Auth', 'React Markdown', 'Lucide Icons'],
     categories: ['Company Work', 'Full-Stack', 'E-commerce'],
@@ -154,7 +154,7 @@ const projectList = [
   {
     id: 9,
     title: 'Halwaiii - Premium Sweets',
-    description: 'Online store for a traditional sweets brand: mithai, baked goods and a gifting collection, with the brand story, store locations, a cart, delivery by location and WhatsApp ordering. Built at The Social Hawks.',
+    description: 'Online store for a traditional sweets brand: mithai, baked goods and a gifting collection, with the brand story, store locations, a cart, delivery by location and WhatsApp ordering.',
     image: '/Images/PROJECTS/halwai.webp',
     technologies: ['Next.js', 'PostgreSQL', 'PL/pgSQL', 'Tailwind CSS', 'JavaScript'],
     categories: ['Company Work', 'E-commerce', 'Full-Stack'],
@@ -214,7 +214,7 @@ const projectList = [
   {
     id: 14,
     title: 'BlendWise Solutions',
-    description: 'Agency website for BlendWise, a web design and development company: services, fixed-price packages for logos, websites and e-commerce, a custom web portal offer, a discount form and an FAQ. Built at The Social Hawks.',
+    description: 'Agency website for BlendWise, a web design and development company: services, fixed-price packages for logos, websites and e-commerce, a custom web portal offer, a discount form and an FAQ.',
     image: '/Images/PROJECTS/blendwise.webp',
     technologies: ['Next.js', 'JavaScript', 'CSS', 'Tailwind CSS'],
     categories: ['Company Work', 'Web App'],

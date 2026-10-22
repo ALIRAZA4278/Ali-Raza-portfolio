@@ -31,21 +31,6 @@ export const currentRole = {
   ]
 };
 
-// Second current role (from the résumé)
-export const agencyRole = {
-  title: 'Full Stack Developer',
-  company: 'The Social Hawks',
-  location: 'Karachi, Pakistan',
-  period: '2025 – Present',
-  description: 'Complete frontend and backend for client projects, from Figma design to deployment, including client communication and requirements gathering.',
-  projects: [
-    { name: 'Connectiva', website: 'http://www.connectiva.ch/en', role: 'Swiss business directory and B2B marketplace' },
-    { name: 'Mohit Computers', website: 'https://mohitcomputers.pk/', role: 'Store for used laptops and accessories, with an admin dashboard' },
-    { name: 'Halwaiii', website: 'https://halwai.vercel.app/', role: 'Online store for a traditional sweets brand' },
-    { name: 'BlendWise', website: 'https://blendwise.vercel.app/', role: 'Agency website for the company portfolio' }
-  ]
-};
-
 export const freelanceSince = '2022';
 
 export const freelanceHighlights = [
