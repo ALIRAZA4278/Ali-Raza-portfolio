@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { FaShoppingBag, FaCalendarCheck, FaRobot, FaLayerGroup } from 'react-icons/fa';
 import { allProjects, splitTitle, hasLink } from '../data/projects';
 import { currentRole } from '../data/site';
@@ -6,7 +7,7 @@ import { currentRole } from '../data/site';
 const byTitle = (start) => allProjects.find((p) => p.title.startsWith(start));
 const project = (start) => {
   const p = byTitle(start);
-  return p ? { name: p.shortTitle ?? splitTitle(p.title).name, href: hasLink(p.live) ? p.live : null } : null;
+  return p ? { name: p.shortTitle ?? splitTitle(p.title).name, href: hasLink(p.live) ? p.live : null, image: p.image } : null;
 };
 const product = (name) => {
   const p = currentRole.products.find((x) => x.name === name);
@@ -55,11 +56,20 @@ export default function Services() {
       </div>
 
       <ul className="services" data-reveal-group>
-        {services.map(({ Icon, title, text, examples }) => (
+        {services.map(({ Icon, title, text, examples }, index) => (
           <li key={title} className="service" data-reveal data-spotlight>
+            <span className="service__num" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
             <span className="service__icon" aria-hidden="true"><Icon /></span>
             <h3 className="service__title">{title}</h3>
             <p className="service__text">{text}</p>
+            {/* Screenshots of the examples that have one; shown on the stacked layout */}
+            <ul className="service__shots" aria-hidden="true">
+              {examples.filter((e) => e.image).map(({ name, image }) => (
+                <li key={name}>
+                  <Image src={image} alt="" fill sizes="200px" />
+                </li>
+              ))}
+            </ul>
             <p className="service__label">Examples</p>
             <ul className="service__examples">
               {examples.map(({ name, href }) => (

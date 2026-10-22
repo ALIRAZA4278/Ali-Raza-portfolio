@@ -105,7 +105,7 @@ export default function MotionLayer() {
       section.classList.add('is-stacked');
 
       gsap.set(cards, { filter: 'brightness(1)', zIndex: (i) => i + 1, rotation: (i) => tilt[i % tilt.length], transformOrigin: '50% 100%' });
-      gsap.set(cards.slice(1), { yPercent: 150, rotation: (i) => tilt[(i + 1) % tilt.length] * 3 });
+      gsap.set(cards.slice(1), { yPercent: 230, rotation: (i) => tilt[(i + 1) % tilt.length] * 3 });
 
       const tl = gsap.timeline({
         scrollTrigger: { trigger: section, start: 'top top', end: 'bottom bottom', scrub: 0.6 }
