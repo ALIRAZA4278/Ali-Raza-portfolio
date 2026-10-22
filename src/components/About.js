@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { currentRole, agencyRole, education } from '../data/site';
+import { currentRole, education } from '../data/site';
 
 const facts = [
   { label: 'Based in', value: 'Karachi' },
@@ -66,13 +66,11 @@ export default function About() {
           <h3>Where I work</h3>
           <p>
             I&apos;m a Software Engineer at <strong>MS Capital Soft</strong>{' '}on Adspoke,
-            ActiveCalculator and Selvo, and a Full Stack Developer at{' '}
-            <strong>The Social Hawks</strong>, building client projects from Figma to deployment.
-            Since 2022 I&apos;ve also freelanced for 5+ clients in the USA and Australia.
+            ActiveCalculator and Selvo. Since 2022 I&apos;ve also freelanced for 5+ clients in the
+            USA and Australia, building projects from Figma to deployment.
           </p>
           <ul className="story__tags" aria-label="Companies">
             <li>{currentRole.company}</li>
-            <li>{agencyRole.company}</li>
             <li>Freelance since 2022</li>
           </ul>
         </div>

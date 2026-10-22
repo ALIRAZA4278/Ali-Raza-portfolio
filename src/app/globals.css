@@ -319,8 +319,9 @@ a { color: inherit; }
 .hero__stats dd { margin: 0; font-family: var(--font-d); font-size: 2.25rem; line-height: 1; color: var(--ink); }
 
 .hero__scroll {
-  position: absolute; z-index: 2; left: 50%; bottom: 24px; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  /* bottom-right of the hero, just left of the floating WhatsApp button */
+  position: absolute; z-index: 2; right: 104px; bottom: 20px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
   font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted); text-decoration: none;
 }
 .hero__scroll span { writing-mode: vertical-rl; }
