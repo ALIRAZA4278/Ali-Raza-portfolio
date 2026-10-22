@@ -1,45 +1,49 @@
 import "./globals.css";
-import { Inter } from 'next/font/google';
-import { ThemeProvider } from '../components/ThemeProvider';
+import { Bebas_Neue, Geist } from 'next/font/google';
+import WhatsAppButton from '../components/WhatsAppButton';
+import Spotlight from '../components/Spotlight';
 
-const inter = Inter({
+const bebas = Bebas_Neue({
   subsets: ['latin'],
+  weight: '400',
   display: 'swap',
-  variable: '--font-inter'
+  variable: '--font-display'
 });
 
+const geist = Geist({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  display: 'swap',
+  variable: '--font-text'
+});
+
+const siteTitle = "Ali Raza - Software Engineer & Full-Stack Developer";
+const siteDescription = "Software Engineer at MS Capital Soft and full-stack developer in Karachi with 4+ years of experience. I build web apps with React, Next.js and the MERN stack, and integrate AI with OpenAI and Gemini.";
+
 export const metadata = {
-  title: "Ali Raza - Full Stack Developer Portfolio",
-  description: "Full-Stack Developer & AI Integration Specialist with 4+ years of experience. I build high-performance web apps with React, Next.js, MERN stack, and integrate AI solutions using OpenAI & Gemini.",
-  keywords: "Web Developer, React, Next.js, MERN Stack, Frontend Developer, Backend Developer, Full Stack Developer, Ali Raza, Portfolio, JavaScript, Node.js, MongoDB",
+  title: siteTitle,
+  description: siteDescription,
+  keywords: "Software Engineer, Full Stack Developer, Web Developer, React, Next.js, MERN Stack, AI Integration, Ali Raza, Portfolio, Karachi, JavaScript, Node.js, MongoDB",
   authors: [{ name: "Ali Raza" }],
   creator: "Ali Raza",
   publisher: "Ali Raza",
-  metadataBase: new URL('https://ali-raza-portfolio-sigma.vercel.app'),
+  metadataBase: new URL('https://ali--raza.vercel.app'),
   alternates: {
     canonical: '/',
   },
+  // The preview image comes from app/opengraph-image.js
   openGraph: {
-    title: "Ali Raza - Full Stack Developer Portfolio",
-    description: "A passionate full-stack web developer crafting modern, responsive, and user-centric digital experiences with React, Next.js, and the MERN stack.",
-    url: "https://ali-raza-portfolio-sigma.vercel.app",
+    title: siteTitle,
+    description: siteDescription,
+    url: "https://ali--raza.vercel.app",
     siteName: "Ali Raza Portfolio",
-    images: [
-      {
-        url: "/Images/ali final 3.png",
-        width: 1200,
-        height: 630,
-        alt: "Ali Raza - Full Stack Developer",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ali Raza - Full Stack Developer Portfolio",
-    description: "A passionate full-stack web developer crafting modern, responsive, and user-centric digital experiences.",
-    images: ["/Images/ali final 3.png"],
+    title: siteTitle,
+    description: siteDescription,
     creator: "@AliFaro45370063",
   },
   robots: {
@@ -61,7 +65,7 @@ export function generateViewport() {
     initialScale: 1,
     maximumScale: 5,
     userScalable: true,
-    themeColor: '#3b82f6',
+    themeColor: '#0b0b0c',
     viewportFit: 'cover'
   };
 }
@@ -71,8 +75,13 @@ export default function RootLayout({ children }) {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Ali Raza',
-    url: 'https://ali-raza-portfolio-sigma.vercel.app',
-    jobTitle: 'Full Stack Developer',
+    url: 'https://ali--raza.vercel.app',
+    jobTitle: 'Software Engineer',
+    worksFor: [
+      { '@type': 'Organization', name: 'MS Capital Soft' },
+      { '@type': 'Organization', name: 'The Social Hawks' },
+    ],
+    alumniOf: { '@type': 'CollegeOrUniversity', name: 'Ziauddin University' },
     sameAs: [
       'https://github.com/ALIRAZA4278',
       'https://www.linkedin.com/in/ali-raza-4a5762282/',
@@ -82,7 +91,7 @@ export default function RootLayout({ children }) {
   };
 
   return (
-    <html lang="en" suppressHydrationWarning className={inter.variable}>
+    <html lang="en" className={`${bebas.variable} ${geist.variable}`} data-scroll-behavior="smooth">
       <head>
         <link rel="manifest" href="/site.webmanifest" />
         <script
@@ -90,10 +99,11 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.className} antialiased`}>
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+      <body>
+        <div className="progress" aria-hidden="true" />
+        {children}
+        <WhatsAppButton />
+        <Spotlight />
       </body>
     </html>
   );

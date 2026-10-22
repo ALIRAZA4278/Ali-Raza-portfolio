@@ -1,21 +1,62 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { ownerNotification, visitorAutoReply } from '../../../lib/emailTemplates';
 
-function sanitizeHtml(str) {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+// Header values (subject, display name) must stay on one line
+const oneLine = (str) => str.replace(/[\r\n]+/g, ' ').trim();
+
+// Spam protection: at most RATE_LIMIT messages per visitor per window.
+// Kept in memory, so it resets when the server instance restarts; it still
+// stops a single bot from flooding the inbox (and the auto-reply).
+const RATE_LIMIT = 3;
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const recentByIp = new Map();
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const recent = (recentByIp.get(ip) || []).filter((t) => now - t < RATE_WINDOW_MS);
+  if (recent.length >= RATE_LIMIT) {
+    recentByIp.set(ip, recent);
+    return true;
+  }
+  recent.push(now);
+  recentByIp.set(ip, recent);
+  return false;
 }
+
+const MAX_LENGTHS = { name: 100, email: 200, subject: 200, message: 5000 };
 
 export async function POST(request) {
   try {
-    const { name, email, subject, message } = await request.json();
+    const { name, email, subject, message, website } = await request.json();
+
+    // Honeypot: the "website" field is hidden from people, so only bots fill it.
+    // Answer as if it worked and send nothing.
+    if (website) {
+      return NextResponse.json({ message: 'Emails sent successfully!' }, { status: 200 });
+    }
+
+    const ip = (request.headers.get('x-forwarded-for') || '').split(',')[0].trim() || 'unknown';
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { error: 'Too many messages. Please try again in a few minutes.' },
+        { status: 429 }
+      );
+    }
+
+    const fields = { name, email, subject, message };
+    const tooLong = Object.entries(fields).some(
+      ([key, value]) => typeof value !== 'string' || value.length > MAX_LENGTHS[key]
+    );
+    if (tooLong) {
+      return NextResponse.json(
+        { error: 'Please keep each field within its length limit.' },
+        { status: 400 }
+      );
+    }
 
     // Validate input
-    if (!name || !email || !subject || !message) {
+    if (!name.trim() || !email.trim() || !subject.trim() || !message.trim()) {
       return NextResponse.json(
         { error: 'All fields are required' },
         { status: 400 }
@@ -31,11 +72,13 @@ export async function POST(request) {
       );
     }
 
-    // Sanitize all user inputs
-    const safeName = sanitizeHtml(name);
-    const safeEmail = sanitizeHtml(email);
-    const safeSubject = sanitizeHtml(subject);
-    const safeMessage = sanitizeHtml(message);
+    // The templates escape everything they put into HTML
+    const clean = {
+      name: oneLine(name),
+      email: oneLine(email),
+      subject: oneLine(subject),
+      message: message.trim(),
+    };
 
     // Create transporter
     const transporter = nodemailer.createTransport({
@@ -58,97 +101,24 @@ export async function POST(request) {
       );
     }
 
-    // Email to you (receiving the contact form)
+    const owner = process.env.NM_EMAIL_USER;
+    const from = { name: 'Ali Raza', address: owner };
+
+    // Email to you: pressing Reply answers the visitor
+    const notification = ownerNotification(clean);
     const mailToYou = {
-      from: process.env.NM_EMAIL_USER,
-      to: process.env.NM_EMAIL_USER,
-      subject: `New Portfolio Contact: ${safeSubject}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #3b82f6; border-bottom: 2px solid #3b82f6; padding-bottom: 10px;">
-            New Contact Form Submission
-          </h2>
-
-          <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <p><strong>Name:</strong> ${safeName}</p>
-            <p><strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a></p>
-            <p><strong>Subject:</strong> ${safeSubject}</p>
-          </div>
-
-          <div style="background-color: #ffffff; padding: 20px; border-left: 4px solid #3b82f6;">
-            <h3 style="color: #374151; margin-top: 0;">Message:</h3>
-            <p style="line-height: 1.6; color: #4b5563;">${safeMessage}</p>
-          </div>
-
-          <div style="text-align: center; margin-top: 30px;">
-            <a href="mailto:${safeEmail}" style="display: inline-block; background-color: #3b82f6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-right: 10px;">Reply Now</a>
-            <a href="https://wa.me/+923212865058" style="display: inline-block; background-color: #25d366; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">WhatsApp</a>
-          </div>
-
-          <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #f1f5f9; border-radius: 8px;">
-            <p style="color: #64748b; font-size: 14px;">
-              This email was sent from your portfolio contact form.
-            </p>
-          </div>
-        </div>
-      `,
+      from: { name: 'Portfolio contact form', address: owner },
+      to: owner,
+      replyTo: { name: clean.name, address: clean.email },
+      ...notification,
     };
 
-    // Auto-reply to the user
+    // Confirmation to the visitor: pressing Reply reaches you
     const autoReplyToUser = {
-      from: process.env.NM_EMAIL_USER,
-      to: email,
-      replyTo: process.env.NM_EMAIL_USER,
-      subject: `Thank you for contacting me, ${safeName}!`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #10b981; border-bottom: 2px solid #10b981; padding-bottom: 10px;">
-            Thank You for Reaching Out!
-          </h2>
-
-          <p style="font-size: 16px; line-height: 1.6; color: #374151;">
-            Hi <strong>${safeName}</strong>,
-          </p>
-
-          <p style="font-size: 16px; line-height: 1.6; color: #374151;">
-            Thank you for contacting me through my portfolio! I've received your message and will get back to you as soon as possible.
-          </p>
-
-          <div style="background-color: #f0f9ff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #0ea5e9;">
-            <h3 style="color: #374151; margin-top: 0;">Your Message Summary:</h3>
-            <p><strong>Subject:</strong> ${safeSubject}</p>
-            <p><strong>Message:</strong> "${safeMessage}"</p>
-          </div>
-
-          <div style="background-color: #fef3c7; padding: 15px; border-radius: 8px; margin: 20px 0;">
-            <p style="color: #92400e; margin: 0;">
-              <strong>Expected Response Time:</strong> I typically respond within 24-48 hours.
-            </p>
-          </div>
-
-          <p style="font-size: 16px; line-height: 1.6; color: #374151;">
-            In the meantime, feel free to connect with me on:
-          </p>
-
-          <div style="text-align: center; margin: 30px 0;">
-            <a href="https://www.linkedin.com/in/ali-raza-4a5762282/" style="display: inline-block; margin: 0 10px; padding: 10px 20px; background-color: #0077b5; color: white; text-decoration: none; border-radius: 5px;">LinkedIn</a>
-            <a href="https://github.com/ALIRAZA4278" style="display: inline-block; margin: 0 10px; padding: 10px 20px; background-color: #333; color: white; text-decoration: none; border-radius: 5px;">GitHub</a>
-            <a href="https://wa.me/+923212865058" style="display: inline-block; margin: 0 10px; padding: 10px 20px; background-color: #25d366; color: white; text-decoration: none; border-radius: 5px;">WhatsApp</a>
-          </div>
-
-          <p style="font-size: 16px; line-height: 1.6; color: #374151;">
-            Best regards,<br>
-            <strong>Ali Raza</strong><br>
-            <em>Full-Stack Developer</em>
-          </p>
-
-          <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #f1f5f9; border-radius: 8px;">
-            <p style="color: #64748b; font-size: 14px; margin: 0;">
-              This is an automated response. Please do not reply to this email.
-            </p>
-          </div>
-        </div>
-      `,
+      from,
+      to: { name: clean.name, address: clean.email },
+      replyTo: from,
+      ...visitorAutoReply(clean),
     };
 
     // Send emails
