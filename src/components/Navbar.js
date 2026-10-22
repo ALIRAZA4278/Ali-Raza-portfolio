@@ -63,7 +63,7 @@ export default function Navbar() {
         </ul>
 
         <a href={contact.resume} download="Ali-Raza-Resume.pdf" className="btn nav__cta">
-          Download résumé
+          Download Resume
         </a>
 
         <button
@@ -99,7 +99,7 @@ export default function Navbar() {
           className="btn"
           tabIndex={isMenuOpen ? 0 : -1}
         >
-          Download résumé
+          Download Resume
         </a>
       </div>
     </header>
