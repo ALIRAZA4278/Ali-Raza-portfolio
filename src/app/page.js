@@ -1,6 +1,7 @@
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import TechStrip from '../components/TechStrip';
+import Statement from '../components/Statement';
 import Projects from '../components/Projects';
 import About from '../components/About';
 import Proof from '../components/Proof';
@@ -22,6 +23,7 @@ export default function Home() {
       <main id="main-content">
         <Hero />
         <TechStrip />
+        <Statement />
         <Projects />
         <About />
         <Proof />

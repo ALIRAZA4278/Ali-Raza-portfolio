@@ -497,6 +497,29 @@ body::after {
 }
 .about__statement .word { display: inline-block; }
 
+/* ------------------------------------------------------------------
+   Statement: one sentence pinned while its words light up
+   ------------------------------------------------------------------ */
+.statement { position: relative; height: 240vh; }
+.statement__pin {
+  position: sticky; top: 0; height: 100vh; height: 100svh;
+  display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+}
+.statement__label {
+  margin: 0 0 28px; color: var(--accent);
+  font-size: var(--step-small); letter-spacing: 0.18em; text-transform: uppercase;
+}
+.statement__text {
+  margin: 0; max-width: 17ch;
+  font-size: clamp(3rem, 1rem + 6.4vw, 8.5rem); line-height: 0.92;
+}
+.statement__text .word { display: inline-block; }
+@media (max-width: 860px) {
+  /* Phones: no pin, the words still light up as they pass */
+  .statement { height: auto; }
+  .statement__pin { position: static; height: auto; padding-block: 96px; }
+}
+
 .facts {
   display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px;
   margin: clamp(56px, 7vw, 96px) 0 0; padding: 0;
@@ -703,6 +726,32 @@ body::after {
   .services__head p { margin-top: 16px; }
 }
 @media (max-width: 600px) { .services { grid-template-columns: 1fr; } }
+
+/* Stacked cards: added by the motion layer on wide screens only */
+.is-stacked { height: 330vh; padding-block: 0; }
+.is-stacked .services__stage {
+  position: sticky; top: var(--nav-h); height: calc(100vh - var(--nav-h));
+  display: flex; flex-direction: column; justify-content: center;
+}
+.is-stacked .services__head { margin-bottom: clamp(24px, 3vw, 40px); }
+.is-stacked .services { display: block; position: relative; width: min(1040px, 100%); height: min(360px, 44vh); margin: 0 auto; }
+.is-stacked .service {
+  position: absolute; inset: 0;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); grid-template-rows: auto 1fr auto auto;
+  column-gap: clamp(32px, 4vw, 64px); padding: clamp(28px, 3vw, 44px);
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
+  will-change: transform;
+}
+.is-stacked .service:hover { translate: none; }
+.is-stacked .service__icon { grid-column: 1; grid-row: 1; }
+.is-stacked .service__title {
+  grid-column: 1; grid-row: 2 / span 3; align-self: end; margin: 0;
+  font-family: var(--font-d); font-weight: 400; text-transform: uppercase; letter-spacing: -0.01em;
+  font-size: clamp(2.5rem, 1.2rem + 2.6vw, 4rem); line-height: 0.9;
+}
+.is-stacked .service__text { grid-column: 2; grid-row: 1 / span 2; margin: 0; font-size: var(--step-body); }
+.is-stacked .service__label { grid-column: 2; grid-row: 3; margin: 20px 0 10px; }
+.is-stacked .service__examples { grid-column: 2; grid-row: 4; }
 
 /* Live in 6 countries: the globe */
 .reach__head {

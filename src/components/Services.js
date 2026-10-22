@@ -42,7 +42,9 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" aria-labelledby="services-title" className="section section--line wrap">
+    <section id="services" aria-labelledby="services-title" className="section section--line wrap" data-service-stack>
+      {/* On wide screens the motion layer pins this stage and deals the cards onto a stack */}
+      <div className="services__stage">
       <div className="services__head" data-reveal-group>
         <h2 id="services-title" className="section-title" data-reveal>
           What I <span className="accent">build</span>
@@ -73,6 +75,7 @@ export default function Services() {
           </li>
         ))}
       </ul>
+      </div>
     </section>
   );
 }
