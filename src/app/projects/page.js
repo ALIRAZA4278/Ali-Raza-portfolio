@@ -23,6 +23,16 @@ const countFor = (category) =>
 export default function ProjectsPage() {
   const [filter, setFilter] = useState('All');
   const root = useRef(null);
+  const list = useRef(null);
+
+  // With the bar pinned, a new filter would otherwise leave you mid-list
+  const chooseFilter = (category) => {
+    setFilter(category);
+    const top = list.current?.getBoundingClientRect().top ?? 0;
+    const bar = document.querySelector('.filterbar')?.offsetHeight ?? 0;
+    const nav = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 64;
+    if (top < nav + bar) window.scrollBy({ top: top - nav - bar - 8, behavior: 'smooth' });
+  };
 
   // Arriving from a button lower down the home page: start at the top
   useEffect(() => {
@@ -76,27 +86,30 @@ export default function ProjectsPage() {
               {personalProjects.length} personal · {clientProjects.length} client and company · 4+ years
             </p>
           </div>
+        </header>
 
-          <ul className="filters" aria-label="Filter projects by category" data-archive-fade>
+        {/* Outside the header so it can stay pinned under the navbar for the whole list */}
+        <div className="filterbar" data-archive-fade>
+          <ul className="filters" aria-label="Filter projects by category">
             {filterCategories.map((category) => (
               <li key={category}>
                 <button
                   type="button"
                   aria-pressed={filter === category}
-                  onClick={() => setFilter(category)}
+                  onClick={() => chooseFilter(category)}
                 >
                   {category}<span>{countFor(category)}</span>
                 </button>
               </li>
             ))}
           </ul>
-        </header>
+        </div>
 
         <p className="sr-only" role="status" aria-live="polite">
           Showing {filteredProjects.length} {filteredProjects.length === 1 ? 'project' : 'projects'}
         </p>
 
-        <ul className="entries">
+        <ul className="entries" ref={list}>
           {filteredProjects.map((project, index) => {
             const { name, tagline } = splitTitle(project.title);
             const flag = project.achievement || project.highlight;
@@ -112,6 +125,10 @@ export default function ProjectsPage() {
                   />
                 </BrowserFrame>
                 <div className="entry__text">
+                  <p className="entry__num" aria-hidden="true">
+                    {String(index + 1).padStart(2, '0')}
+                    <span> / {String(filteredProjects.length).padStart(2, '0')}</span>
+                  </p>
                   <h2 className="entry__title display">{name}</h2>
                   {tagline && <p className="lead">{tagline}</p>}
                   <p className="entry__meta">
