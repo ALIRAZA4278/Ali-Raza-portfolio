@@ -1,145 +1,59 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaInstagram, FaHeart, FaArrowUp } from 'react-icons/fa';
+import Link from 'next/link';
+import { FaGithub, FaLinkedinIn, FaInstagram, FaWhatsapp, FaArrowUp } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
+import { contact, socialLinks } from '../data/site';
+
+const footerLinks = [
+  { name: 'Work', href: '/#work' },
+  { name: 'About', href: '/#about' },
+  { name: 'Experience', href: '/#experience' },
+  { name: 'All projects', href: '/projects' },
+  { name: 'Contact', href: '/#contact' }
+];
+
+const socialIcons = { GitHub: FaGithub, LinkedIn: FaLinkedinIn, X: FaXTwitter, Instagram: FaInstagram };
+const footerSocials = [
+  ...socialLinks.map(({ label, href }) => ({ label, href, Icon: socialIcons[label] })),
+  { label: 'WhatsApp', href: contact.whatsappChat, Icon: FaWhatsapp }
+].filter(({ Icon }) => Icon);
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
-  const socialLinks = [
-    { icon: FaGithub, href: 'https://github.com/ALIRAZA4278', label: 'GitHub', color: 'hover:text-gray-300' },
-    { icon: FaLinkedin, href: 'https://www.linkedin.com/in/ali-raza-4a5762282/', label: 'LinkedIn', color: 'hover:text-blue-400' },
-    { icon: FaXTwitter, href: 'https://x.com/AliFaro45370063', label: 'X (Twitter)', color: 'hover:text-blue-300' },
-    { icon: FaInstagram, href: 'https://instagram.com/ali._.razax', label: 'Instagram', color: 'hover:text-pink-400' }
-  ];
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <footer className="bg-gray-900 text-white relative overflow-hidden" role="contentinfo">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-        }}></div>
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Footer Content */}
-        <div className="py-12">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-            {/* Left: Brand & Description */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="text-center lg:text-left"
-            >
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-3">
-                Ali Raza
-              </h3>
-              <p className="text-gray-400 leading-relaxed max-w-md mx-auto lg:mx-0">
-                Full-Stack Developer &amp; AI Integration Specialist with 4+ years of experience
-                building high-performance web applications and intelligent solutions.
-              </p>
-            </motion.div>
-
-            {/* Center: Navigation Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <nav aria-label="Footer navigation" className="flex flex-wrap justify-center gap-6">
-                {['Home', 'About', 'Experience', 'Skills', 'Projects', 'Contact'].map((item) => (
-                  <motion.button
-                    key={item}
-                    onClick={() => {
-                      const element = document.querySelector(`#${item.toLowerCase()}`);
-                      element?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="text-gray-400 hover:text-white transition-colors duration-300 text-sm font-medium"
-                  >
-                    {item}
-                  </motion.button>
-                ))}
-              </nav>
-            </motion.div>
-
-            {/* Right: Social Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="text-center lg:text-right"
-            >
-              <div className="flex justify-center lg:justify-end gap-4">
-                {socialLinks.map(({ icon: Icon, href, label, color }) => (
-                  <motion.a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.2, y: -3 }}
-                    whileTap={{ scale: 0.9 }}
-                    className={`p-3 bg-gray-800 text-gray-400 rounded-full transition-all duration-300 ${color} hover:bg-gray-700`}
-                    aria-label={label}
-                  >
-                    <Icon size={20} />
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
-
-        {/* Bottom Section */}
-        <div className="py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-gray-400 text-sm text-center sm:text-left flex items-center gap-2">
-            &copy; {currentYear} Ali Raza. Made with
-            <motion.span
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 1, repeat: Infinity }}
-              className="text-red-500"
-            >
-              <FaHeart size={14} />
-            </motion.span>
-            and lots of coffee
+    <footer className="footer">
+      <div className="footer__top">
+        <div className="footer__brand">
+          <p className="footer__name display">Ali Raza</p>
+          <p className="footer__tag">
+            Software Engineer at MS Capital Soft. Building web apps and AI tools from Karachi.
           </p>
+        </div>
 
-          <div className="flex items-center gap-4">
-            <p className="text-gray-400 text-sm">
-              Built with Next.js & Tailwind CSS
-            </p>
+        <nav className="footer__nav" aria-label="Footer">
+          {footerLinks.map(({ name, href }) => (
+            <Link key={name} href={href}>{name}</Link>
+          ))}
+        </nav>
 
-            {/* Back to Top Button */}
-            <motion.button
-              onClick={scrollToTop}
-              whileHover={{ scale: 1.1, y: -2 }}
-              whileTap={{ scale: 0.9 }}
-              className="p-2 bg-gray-800 text-gray-400 rounded-full hover:bg-gray-700 hover:text-white transition-all duration-300"
-              aria-label="Back to top"
-            >
-              <FaArrowUp size={16} />
-            </motion.button>
-          </div>
+        <div className="footer__reach">
+          <a className="footer__mail" href={`mailto:${contact.email}`}>{contact.email}</a>
+          <ul className="footer__socials" aria-label="Find me online">
+            {footerSocials.map(({ label, href, Icon }) => (
+              <li key={label}>
+                <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
+                  <Icon aria-hidden="true" />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
-      {/* Bottom gradient line */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 opacity-50"></div>
+      <div className="footer__bottom">
+        <p>&copy; {new Date().getFullYear()} Ali Raza. All rights reserved.</p>
+        <a href="#main-content" className="footer__top-link">
+          Back to top <FaArrowUp aria-hidden="true" />
+        </a>
+      </div>
     </footer>
   );
 }

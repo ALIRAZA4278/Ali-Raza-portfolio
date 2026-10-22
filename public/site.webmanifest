@@ -1,25 +1,20 @@
 {
-  "name": "Ali Raza - Web Developer Portfolio",
-  "short_name": "Ali Raza Portfolio",
-  "description": "A passionate 19-year-old web developer crafting modern, responsive, and user-centric digital experiences.",
+  "name": "Ali Raza - Software Engineer",
+  "short_name": "Ali Raza",
+  "description": "Full-stack developer and AI integration specialist in Karachi.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1f2937",
-  "theme_color": "#3b82f6",
+  "background_color": "#0b0b0c",
+  "theme_color": "#0b0b0c",
   "icons": [
     {
-      "src": "/favicon.ico",
-      "sizes": "48x48",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "/favicon-16x16.png",
-      "sizes": "16x16",
+      "src": "/icon",
+      "sizes": "32x32",
       "type": "image/png"
     },
     {
-      "src": "/favicon-32x32.png",
-      "sizes": "32x32",
+      "src": "/apple-icon",
+      "sizes": "180x180",
       "type": "image/png"
     }
   ]
