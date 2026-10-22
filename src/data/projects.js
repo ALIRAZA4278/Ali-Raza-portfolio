@@ -137,7 +137,7 @@ const projectList = [
     live: 'https://health-mate-hackathon.vercel.app/',
     featured: true,
     type: 'Personal',
-    achievement: '2nd Position - Saylani Hackathon'
+    achievement: 'Saylani Coding Night 2025 hackathon'
   },
   {
     id: 7,
