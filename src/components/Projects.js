@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import BrowserFrame from './BrowserFrame';
 import { allProjects, splitTitle, hasLink, metaLine } from '../data/projects';
-import { ScrollTrigger, useGSAP } from '../lib/gsap';
+import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap';
 import { scrollToY } from '../lib/scroll';
 
 const featured = allProjects.slice(0, 6);
@@ -17,6 +17,8 @@ export default function Projects() {
   const triggerRef = useRef(null);
   const [live, setLive] = useState(false);
   const [active, setActive] = useState(0);
+  const [scrubbed, setScrubbed] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1000px)');
@@ -33,23 +35,52 @@ export default function Projects() {
       return;
     }
     const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 64;
+    const last = featured.length - 1;
+    const motionOk = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    const shots = gsap.utils.toArray(showcaseRef.current.querySelectorAll('.slide__shot'));
+    const images = shots.map((shot) => shot.querySelector('img'));
+
+    // Each scroll step pulls the next screenshot up over the last one, which sinks back
+    let tl = null;
+    if (motionOk) {
+      setScrubbed(true);
+      gsap.set(shots, { zIndex: (i) => i + 1, filter: 'brightness(1)', transformOrigin: '50% 0%' });
+      gsap.set(shots.slice(1), { clipPath: 'inset(100% 0% 0% 0% round 14px)' });
+      gsap.set(images, { yPercent: -4, scale: 1.08 });
+      tl = gsap.timeline({ paused: true });
+      shots.slice(1).forEach((shot, i) => {
+        tl.to(shot, { clipPath: 'inset(0% 0% 0% 0% round 14px)', ease: 'power2.inOut', duration: 1 }, i);
+        tl.to(shots[i], { scale: 0.9, yPercent: -4, filter: 'brightness(0.45)', ease: 'power1.in', duration: 1 }, i);
+        tl.fromTo(images[i + 1], { yPercent: 8 }, { yPercent: -4, ease: 'none', duration: 1 }, i);
+      });
+    }
+
     triggerRef.current = ScrollTrigger.create({
       trigger: showcaseRef.current,
       start: `top top+=${navH}`,
       end: 'bottom bottom',
+      scrub: tl ? 0.6 : false,
+      animation: tl || undefined,
       onUpdate: (self) => {
-        setActive(Math.min(featured.length - 1, Math.floor(self.progress * featured.length)));
+        setProgress(self.progress);
+        setActive(tl
+          ? Math.min(last, Math.round(self.progress * last))
+          : Math.min(last, Math.floor(self.progress * featured.length)));
       }
     });
     ScrollTrigger.refresh();
-    return () => { triggerRef.current = null; };
+    return () => {
+      triggerRef.current = null;
+      setScrubbed(false);
+    };
   }, { dependencies: [live], revertOnUpdate: true });
 
   const goTo = (index) => {
     const st = triggerRef.current;
     if (!st) return;
-    const top = st.start + ((index + 0.5) / featured.length) * (st.end - st.start);
-    scrollToY(top);
+    // Scrubbed: each project rests at an exact step. Stepped: aim for the middle of its stretch.
+    const at = scrubbed ? index / (featured.length - 1) : (index + 0.5) / featured.length;
+    scrollToY(st.start + at * (st.end - st.start));
   };
 
   return (
@@ -66,7 +97,7 @@ export default function Projects() {
 
       <div
         ref={showcaseRef}
-        className={`showcase${live ? ' is-live' : ''}`}
+        className={`showcase${live ? ' is-live' : ''}${scrubbed ? ' is-scrubbed' : ''}`}
         style={{ '--steps': featured.length }}
       >
         {!live && (
@@ -76,7 +107,7 @@ export default function Projects() {
           <ul
             className="showcase__nav"
             aria-label="Selected projects"
-            style={{ '--progress': (active + 1) / featured.length }}
+            style={{ '--progress': scrubbed ? progress : (active + 1) / featured.length }}
           >
             {featured.map((project, index) => (
               <li key={project.id}>
@@ -93,6 +124,11 @@ export default function Projects() {
           </ul>
 
           <div className="showcase__slides">
+            {live && (
+              <p className="showcase__count" aria-hidden="true">
+                <span key={active}>{String(active + 1).padStart(2, '0')}</span> / {String(featured.length).padStart(2, '0')}
+              </p>
+            )}
             {featured.map((project, index) => {
               const { name } = splitTitle(project.title);
               const flag = project.achievement || project.highlight;
