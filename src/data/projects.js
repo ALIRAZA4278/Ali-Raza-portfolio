@@ -39,6 +39,18 @@ const projectList = [
     type: 'Company'
   },
   {
+    id: 23,
+    title: 'Good Noura - Nut Butter E-commerce',
+    description: 'Online store for Good Noura, a small-batch nut butter brand in Karachi: peanut, almond and cashew butters as single jars, ready-made bundles or a make-your-own bundle, with 10% off for paying online and free delivery across Pakistan on orders over Rs 4,000.',
+    image: '/Images/PROJECTS/goodnoura.webp',
+    technologies: ['Next.js', 'React'],
+    categories: ['E-commerce', 'Web App'],
+    github: '',
+    live: 'https://goodnoura.com/',
+    featured: false,
+    type: 'Client'
+  },
+  {
     id: 6,
     title: 'GracePoint Medical Staffing',
     shortTitle: 'GracePoint',

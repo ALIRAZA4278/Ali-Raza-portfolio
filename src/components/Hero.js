@@ -70,8 +70,8 @@ export default function Hero() {
             <span>Software Engineer</span> at MS Capital Soft
           </p>
           <p className="hero__lead" data-hero-fade>
-            I build stores, booking sites and AI tools that real businesses run on, from Secret
-            Hour in Pakistan to Connectiva in Switzerland, and ship SaaS features for Adspoke,
+            I build stores, booking sites and AI tools that real businesses run on, from Mohit
+            Computers in Pakistan to Connectiva in Switzerland, and ship SaaS features for Adspoke,
             ActiveCalculator and Selvo.
           </p>
 
