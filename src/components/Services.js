@@ -19,7 +19,7 @@ const services = [
     Icon: FaShoppingBag,
     title: 'Online stores',
     text: 'Stores with product catalogues, carts, offers, payments and admin dashboards, built to take real orders.',
-    examples: [project('Secret Hour'), project('Cray Stuff'), project('Mohit Computers')]
+    examples: [project('Cray Stuff'), project('Mohit Computers')]
   },
   {
     Icon: FaCalendarCheck,

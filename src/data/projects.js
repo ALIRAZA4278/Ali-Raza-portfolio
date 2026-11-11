@@ -1,18 +1,19 @@
 // All projects in display order (best/most impressive first)
 const projectList = [
   // --- TOP 6 (shown in Selected work on the homepage) ---
-  {
-    id: 1,
-    title: 'Secret Hour - Couples Gift E-commerce',
-    description: 'Discreet online store in Pakistan for gifts for couples and curated bundles, including The Midnight Deck card game. A quiz helps shoppers choose, with bank transfer (10% off) or cash on delivery, free nationwide delivery, order tracking and a referral program.',
-    image: '/Images/PROJECTS/secrethour.webp',
-    technologies: ['Next.js', 'Supabase', 'PostgreSQL', 'React', 'Tailwind CSS'],
-    categories: ['E-commerce', 'Full-Stack'],
-    github: 'https://github.com/ALIRAZA4278/secrethour',
-    live: 'http://secrethour.pk/',
-    featured: true,
-    type: 'Personal'
-  },
+  // Hidden for now, at Ali's request; uncomment to show it again
+  // {
+  //   id: 1,
+  //   title: 'Secret Hour - Couples Gift E-commerce',
+  //   description: 'Discreet online store in Pakistan for gifts for couples and curated bundles, including The Midnight Deck card game. A quiz helps shoppers choose, with bank transfer (10% off) or cash on delivery, free nationwide delivery, order tracking and a referral program.',
+  //   image: '/Images/PROJECTS/secrethour.webp',
+  //   technologies: ['Next.js', 'Supabase', 'PostgreSQL', 'React', 'Tailwind CSS'],
+  //   categories: ['E-commerce', 'Full-Stack'],
+  //   github: 'https://github.com/ALIRAZA4278/secrethour',
+  //   live: 'http://secrethour.pk/',
+  //   featured: true,
+  //   type: 'Personal'
+  // },
   {
     id: 2,
     title: 'Cray Stuff - Vintage & Streetwear Marketplace',
